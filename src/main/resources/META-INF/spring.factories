@@ -1,0 +1,34 @@
+# Spring Boot BootstrapRegistryInitializer  1
+org.springframework.boot.BootstrapRegistryInitializer=\
+com.fishep.spring.debug.process.MyBootstrapRegistryInitializer
+
+# Initializers 5
+org.springframework.context.ApplicationContextInitializer=\
+com.fishep.spring.debug.process.MyApplicationContextInitializer
+
+# Application Listeners 3
+org.springframework.context.ApplicationListener=\
+com.fishep.spring.debug.process.MyApplicationListener
+
+# Run Listeners 2
+org.springframework.boot.SpringApplicationRunListener=\
+com.fishep.spring.debug.process.MySpringApplicationRunListener
+
+# 4
+org.springframework.boot.env.EnvironmentPostProcessor=\
+com.fishep.spring.debug.process.MyEnvironmentPostProcessor
+
+# PropertySource Loaders
+#org.springframework.boot.env.PropertySourceLoader=
+#org.springframework.boot.env.PropertiesPropertySourceLoader,
+#org.springframework.boot.env.YamlPropertySourceLoader
+
+# ConfigData Location Resolvers
+#org.springframework.boot.context.config.ConfigDataLocationResolver=
+#org.springframework.boot.context.config.ConfigTreeConfigDataLocationResolver,
+#org.springframework.boot.context.config.StandardConfigDataLocationResolver
+
+# ConfigData Loaders
+#org.springframework.boot.context.config.ConfigDataLoader=
+#org.springframework.boot.context.config.ConfigTreeConfigDataLoader,
+#org.springframework.boot.context.config.StandardConfigDataLoader
