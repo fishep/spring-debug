@@ -25,4 +25,17 @@ public class InheritedAnnotationTests {
         assertFalse(Children.class.isAnnotationPresent(TypeAnnotation.class));
         assertTrue(Children.class.isAnnotationPresent(InheritedTypeAnnotation.class));
     }
+
+    @Test
+    void interfaceInherited() {
+        assertTrue(GrandpaInterface.class.isAnnotationPresent(TypeAnnotation.class));
+        assertTrue(GrandpaInterface.class.isAnnotationPresent(InheritedTypeAnnotation.class));
+
+        assertFalse(ParentInterface.class.isAnnotationPresent(TypeAnnotation.class));
+        assertFalse(ParentInterface.class.isAnnotationPresent(InheritedTypeAnnotation.class));
+
+        assertFalse(ChildrenInterface.class.isAnnotationPresent(TypeAnnotation.class));
+        assertFalse(ChildrenInterface.class.isAnnotationPresent(InheritedTypeAnnotation.class));
+    }
+
 }
