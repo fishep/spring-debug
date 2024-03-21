@@ -1,5 +1,6 @@
 package com.fishep.spring.debug.process;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.BootstrapRegistry;
 import org.springframework.boot.BootstrapRegistryInitializer;
 
@@ -8,19 +9,20 @@ import org.springframework.boot.BootstrapRegistryInitializer;
  * @Date 2023/12/7 11:55
  * @Desc
  **/
+@Slf4j
 public class MyBootstrapRegistryInitializer implements BootstrapRegistryInitializer {
     @Override
     public void initialize(BootstrapRegistry registry) {
-
-        System.out.println("------------MyBootstrapRegistryInitializer");
-        System.out.println(registry);
-        System.out.println("------------MyBootstrapRegistryInitializer end");
+        log.trace("initialize begin");
 
         registry.register(MyRegister.class, context -> {
-            System.out.println("------------MyBootstrapRegistryInitializer context ");
-            System.out.println(context);
-            System.out.println("------------MyBootstrapRegistryInitializer context end");
+
+            log.trace("MyRegister instance begin");
+            log.trace("MyRegister instance end");
+
             return new MyRegister();
         });
+
+        log.trace("initialize end");
     }
 }

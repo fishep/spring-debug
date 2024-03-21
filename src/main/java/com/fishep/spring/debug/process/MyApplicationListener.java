@@ -1,5 +1,6 @@
 package com.fishep.spring.debug.process;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEvent;
 
 /**
@@ -7,11 +8,14 @@ import org.springframework.context.ApplicationEvent;
  * @Date 2023/12/7 11:56
  * @Desc
  **/
+@Slf4j
 public class MyApplicationListener implements org.springframework.context.ApplicationListener {
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
-        System.out.println("------------MyApplicationListener");
-        System.out.println(event);
-        System.out.println("------------MyApplicationListener end");
+        log.trace("onApplicationEvent begin");
+
+        log.trace("event: " + event.getClass().getSimpleName());
+
+        log.trace("onApplicationEvent end");
     }
 }

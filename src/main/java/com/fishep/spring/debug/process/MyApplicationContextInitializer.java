@@ -1,5 +1,6 @@
 package com.fishep.spring.debug.process;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -13,30 +14,29 @@ import org.springframework.core.PriorityOrdered;
  * @Date 2023/12/7 11:56
  * @Desc
  **/
+@Slf4j
 public class MyApplicationContextInitializer implements ApplicationContextInitializer {
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
-        System.out.println("------------MyApplicationContextInitializer");
-        System.out.println(applicationContext);
-        System.out.println("------------MyApplicationContextInitializer end");
+        log.trace("initialize begin");
 
         MyBeanDefinitionRegistryPostProcessor postProcessor = new MyBeanDefinitionRegistryPostProcessor();
         applicationContext.addBeanFactoryPostProcessor(postProcessor);
+
+        log.trace("initialize end");
     }
 
     static class MyBeanDefinitionRegistryPostProcessor implements BeanDefinitionRegistryPostProcessor, PriorityOrdered {
         @Override
         public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) throws BeansException {
-            System.out.println("------------MyBeanDefinitionRegistryPostProcessor postProcessBeanDefinitionRegistry");
-            System.out.println(registry);
-            System.out.println("------------MyBeanDefinitionRegistryPostProcessor postProcessBeanDefinitionRegistry end");
+            log.trace("postProcessBeanDefinitionRegistry begin");
+            log.trace("postProcessBeanDefinitionRegistry end");
         }
 
         @Override
         public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-            System.out.println("------------MyBeanDefinitionRegistryPostProcessor postProcessBeanFactory");
-            System.out.println(beanFactory);
-            System.out.println("------------MyBeanDefinitionRegistryPostProcessor postProcessBeanFactory end");
+            log.trace("postProcessBeanFactory begin");
+            log.trace("postProcessBeanFactory end");
         }
 
         @Override

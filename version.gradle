@@ -1,0 +1,25 @@
+ext {
+    version = [
+            "hutool": "5.8.16",
+            "lombok": "1.18.26",
+            "mapstruct": "1.5.5.Final",
+            "mybatis": "3.0.1",
+            "mybatisplus": "3.5.3.1",
+            "mybatisplusjoin": "1.4.5",
+            "springdoc": "2.1.0",
+            "dubbo": "3.2.11"
+    ]
+
+    dependencies = [
+            "hutool": "cn.hutool:hutool-all:${version.hutool}",
+            "lombok": "org.projectlombok:lombok:${version.lombok}",
+            "mapstruct": "org.mapstruct:mapstruct:${version.mapstruct}",
+            "mapstruct-processor": "org.mapstruct:mapstruct-processor:${version.mapstruct}",
+            "mybatis": "org.mybatis.spring.boot:mybatis-spring-boot-starter:${version.mybatis}",
+            "mybatisplus": "com.baomidou:mybatis-plus-boot-starter:${version.mybatisplus}",
+            "mybatisplusjoin": "com.github.yulichang:mybatis-plus-join-boot-starter:${version.mybatisplusjoin}",
+            "springdoc": "org.springdoc:springdoc-openapi-starter-webmvc-ui:${version.springdoc}",
+            "dubbo": "org.apache.dubbo:dubbo-spring-boot-starter:${version.dubbo}",
+            "dubbo-registry-nacos": "org.apache.dubbo:dubbo-registry-nacos:${version.dubbo}"
+    ]
+}

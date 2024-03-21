@@ -1,5 +1,7 @@
 package com.fishep.java.debug.generic;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @Author fly.fei
  * @Date 2024/3/13 11:44
@@ -12,6 +14,7 @@ package com.fishep.java.debug.generic;
  *     不能判断带泛型类型的类型，例如：x instanceof Pair<String>；
  *     不能实例化T类型，例如：new T()。
  **/
+@Slf4j
 public class Generic<T> {
 
     private T t;
@@ -41,7 +44,7 @@ public class Generic<T> {
     }
 
     public static <T> void print(T t){
-        System.out.println(t);
+        log.info(t.toString());
     }
 
 }
