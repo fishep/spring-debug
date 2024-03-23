@@ -25,22 +25,8 @@
         </triggeringPolicy>
     </appender>
 
-    <springProfile name="dev">
-        <logger name="com.fishep" level="TRACE"/>
-        <root level="TRACE">
-            <appender-ref ref="CONSOLE"/>
-        </root>
-    </springProfile>
-    <springProfile name="test">
-        <logger name="com.fishep" level="INFO"/>
-        <root level="INFO">
-            <appender-ref ref="FILE"/>
-        </root>
-    </springProfile>
-    <springProfile name="prod">
-        <logger name="com.fishep" level="WARN"/>
-        <root level="WARN">
-            <appender-ref ref="FILE"/>
-        </root>
-    </springProfile>
+<!--    <logger name="com.fishep" level="TRACE"/>-->
+    <root level="TRACE">
+        <appender-ref ref="CONSOLE"/>
+    </root>
 </configuration>
