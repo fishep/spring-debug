@@ -1,34 +1,55 @@
-# Spring Boot BootstrapRegistryInitializer  1
+# Spring Boot BootstrapRegistryInitializer
 org.springframework.boot.BootstrapRegistryInitializer=\
 com.fishep.spring.debug.process.MyBootstrapRegistryInitializer
 
-# Initializers 5
+# Initializers
 org.springframework.context.ApplicationContextInitializer=\
 com.fishep.spring.debug.process.MyApplicationContextInitializer
 
-# Application Listeners 3
+# Application Listeners
 org.springframework.context.ApplicationListener=\
 com.fishep.spring.debug.process.MyApplicationListener
 
-# Run Listeners 2
+# Run Listeners
 org.springframework.boot.SpringApplicationRunListener=\
 com.fishep.spring.debug.process.MySpringApplicationRunListener
 
-# 4
+# Logging Systems
+org.springframework.boot.logging.LoggingSystemFactory=\
+com.fishep.spring.debug.process.MyLoggingSystemFactory
+
+# Application Context Factories
+org.springframework.boot.ApplicationContextFactory=\
+com.fishep.spring.debug.process.MyApplicationContextFactory
+
+# Environment Post Processors
 org.springframework.boot.env.EnvironmentPostProcessor=\
 com.fishep.spring.debug.process.MyEnvironmentPostProcessor
 
-# PropertySource Loaders
-#org.springframework.boot.env.PropertySourceLoader=
-#org.springframework.boot.env.PropertiesPropertySourceLoader,
-#org.springframework.boot.env.YamlPropertySourceLoader
-
 # ConfigData Location Resolvers
-#org.springframework.boot.context.config.ConfigDataLocationResolver=
-#org.springframework.boot.context.config.ConfigTreeConfigDataLocationResolver,
-#org.springframework.boot.context.config.StandardConfigDataLocationResolver
+org.springframework.boot.context.config.ConfigDataLocationResolver=\
+com.fishep.spring.debug.process.MyConfigDataLocationResolver
+
+# PropertySource Loaders
+org.springframework.boot.env.PropertySourceLoader=\
+com.fishep.spring.debug.process.MyPropertySourceLoader
 
 # ConfigData Loaders
-#org.springframework.boot.context.config.ConfigDataLoader=
-#org.springframework.boot.context.config.ConfigTreeConfigDataLoader,
-#org.springframework.boot.context.config.StandardConfigDataLoader
+#org.springframework.boot.context.config.ConfigDataLoader=\
+#com.fishep.spring.debug.process.MyConfigDataLoader
+
+#org.springframework.beans.BeanInfoFactory
+
+#---------------------------------------  autoconfigure  ---------------------------------------#
+
+# Auto Configuration Import Filters
+org.springframework.boot.autoconfigure.AutoConfigurationImportFilter=\
+com.fishep.spring.debug.process.autoconfigure.OnMyCondition
+
+# Auto Configuration Import Listeners
+org.springframework.boot.autoconfigure.AutoConfigurationImportListener=\
+com.fishep.spring.debug.process.autoconfigure.MyAutoConfigurationImportListener
+
+# DataSource initializer detectors
+#org.springframework.boot.sql.init.dependency.DatabaseInitializerDetector=\
+#com.fishep.spring.debug.process.autoconfigure.MyDatabaseInitializerDetector
