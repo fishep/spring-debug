@@ -11,7 +11,7 @@ import java.util.List;
  * @Desc
  **/
 @Slf4j
-public class MyConfigDataLocationResolver implements ConfigDataLocationResolver<StandardConfigDataResource> {
+public class MyConfigDataLocationResolver implements ConfigDataLocationResolver<MyConfigDataResource> {
 
     @Override
     public boolean isResolvable(ConfigDataLocationResolverContext context, ConfigDataLocation location) {
@@ -24,7 +24,7 @@ public class MyConfigDataLocationResolver implements ConfigDataLocationResolver<
     }
 
     @Override
-    public List<StandardConfigDataResource> resolve(ConfigDataLocationResolverContext context, ConfigDataLocation location) throws ConfigDataLocationNotFoundException, ConfigDataResourceNotFoundException {
+    public List<MyConfigDataResource> resolve(ConfigDataLocationResolverContext context, ConfigDataLocation location) throws ConfigDataLocationNotFoundException, ConfigDataResourceNotFoundException {
 
         log.trace("resolve begin");
 
@@ -34,7 +34,7 @@ public class MyConfigDataLocationResolver implements ConfigDataLocationResolver<
     }
 
     @Override
-    public List<StandardConfigDataResource> resolveProfileSpecific(ConfigDataLocationResolverContext context, ConfigDataLocation location, Profiles profiles) throws ConfigDataLocationNotFoundException {
+    public List<MyConfigDataResource> resolveProfileSpecific(ConfigDataLocationResolverContext context, ConfigDataLocation location, Profiles profiles) throws ConfigDataLocationNotFoundException {
 
         log.trace("resolveProfileSpecific begin");
 

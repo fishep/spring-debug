@@ -35,8 +35,8 @@ org.springframework.boot.env.PropertySourceLoader=\
 com.fishep.spring.debug.process.MyPropertySourceLoader
 
 # ConfigData Loaders
-#org.springframework.boot.context.config.ConfigDataLoader=\
-#com.fishep.spring.debug.process.MyConfigDataLoader
+org.springframework.boot.context.config.ConfigDataLoader=\
+com.fishep.spring.debug.process.MyConfigDataLoader
 
 #org.springframework.beans.BeanInfoFactory
 

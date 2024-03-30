@@ -5,3 +5,5 @@ spring:
     name: spring-debug
   profiles:
     active: dev
+#  main:
+#    allowBeanDefinitionOverriding: true

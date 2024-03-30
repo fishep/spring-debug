@@ -1,7 +1,10 @@
 package com.fishep.spring.debug.process;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.context.config.*;
+import org.springframework.boot.context.config.ConfigData;
+import org.springframework.boot.context.config.ConfigDataLoader;
+import org.springframework.boot.context.config.ConfigDataLoaderContext;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 
 import java.io.IOException;
 
@@ -11,25 +14,26 @@ import java.io.IOException;
  * @Desc
  **/
 @Slf4j
-public class MyConfigDataLoader implements ConfigDataLoader<StandardConfigDataResource> {
+public class MyConfigDataLoader implements ConfigDataLoader<MyConfigDataResource> {
 
     @Override
-    public ConfigData load(ConfigDataLoaderContext context, StandardConfigDataResource resource) throws IOException, ConfigDataResourceNotFoundException {
+    public boolean isLoadable(ConfigDataLoaderContext context, MyConfigDataResource resource) {
 
         log.trace("load begin");
 
         log.trace("load end");
 
-        return null;
+        return ConfigDataLoader.super.isLoadable(context, resource);
     }
 
     @Override
-    public boolean isLoadable(ConfigDataLoaderContext context, StandardConfigDataResource resource) {
+    public ConfigData load(ConfigDataLoaderContext context, MyConfigDataResource resource) throws IOException, ConfigDataResourceNotFoundException {
 
         log.trace("isLoadable begin");
 
         log.trace("isLoadable end");
 
-        return ConfigDataLoader.super.isLoadable(context, resource);
+        return null;
     }
+
 }
