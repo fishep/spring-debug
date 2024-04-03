@@ -1,9 +1,9 @@
 package com.fishep.spring.debug.process.autoconfigure;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
-import org.springframework.boot.sql.init.dependency.DatabaseInitializerDetector;
+import org.springframework.boot.sql.init.dependency.AbstractBeansOfTypeDatabaseInitializerDetector;
 
+import java.util.Collections;
 import java.util.Set;
 
 /**
@@ -12,35 +12,16 @@ import java.util.Set;
  * @Desc
  **/
 @Slf4j
-public class MyDatabaseInitializerDetector implements DatabaseInitializerDetector {
+public class MyDatabaseInitializerDetector extends AbstractBeansOfTypeDatabaseInitializerDetector {
 
     @Override
-    public Set<String> detect(ConfigurableListableBeanFactory beanFactory) {
+    protected Set<Class<?>> getDatabaseInitializerBeanTypes() {
 
-        log.trace("detect begin");
+        log.trace("getDatabaseInitializerBeanTypes begin");
 
-        log.trace("detect end");
+        log.trace("getDatabaseInitializerBeanTypes end");
 
-        return null;
+        return Collections.emptySet();
     }
 
-    @Override
-    public void detectionComplete(ConfigurableListableBeanFactory beanFactory, Set<String> dataSourceInitializerNames) {
-
-        log.trace("detectionComplete begin");
-
-        log.trace("detectionComplete end");
-
-        DatabaseInitializerDetector.super.detectionComplete(beanFactory, dataSourceInitializerNames);
-    }
-
-    @Override
-    public int getOrder() {
-
-        log.trace("getOrder begin");
-
-        log.trace("getOrder end");
-
-        return DatabaseInitializerDetector.super.getOrder();
-    }
 }
