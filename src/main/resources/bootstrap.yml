@@ -1,0 +1,18 @@
+server:
+  port: ${PORT:8080}
+spring:
+  application:
+    name: spring-debug
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: nacos.dev:8848
+        file-extension: yaml
+      discovery:
+        server-addr: nacos.dev:8848
+    sentinel:
+      transport:
+        port: 8859
+        dashboard: sentinel.dev:8858

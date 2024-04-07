@@ -62,6 +62,17 @@ dependencies {
     implementation 'cn.hutool:hutool-all'
     implementation 'org.mapstruct:mapstruct'
     implementation 'org.springframework.boot:spring-boot-starter'
+//    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+//    api "org.springframework.cloud:spring-cloud-starter-bootstrap"
+//    api 'com.alibaba.nacos:nacos-client:2.2.3'
+//    api('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config') {
+//        exclude group: 'com.alibaba.nacos:nacos-client'
+//    }
+//    api('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery') {
+//        exclude group: 'com.alibaba.nacos:nacos-client'
+//    }
+//    api 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
