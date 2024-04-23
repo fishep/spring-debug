@@ -28,7 +28,7 @@ public class Grandpa implements GrandpaInterface {
     }
 
     @Override
-    public void grandpaMethod2() {
+    public void grandpaMethod2(String p) {
 
     }
 }

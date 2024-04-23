@@ -9,6 +9,6 @@ public interface ParentInterface extends GrandpaInterface {
 
     void parentMethod1();
 
-    void parentMethod2();
+    void parentMethod2(String p);
 
 }

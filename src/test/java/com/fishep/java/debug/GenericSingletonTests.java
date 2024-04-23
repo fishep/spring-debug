@@ -1,6 +1,6 @@
 package com.fishep.java.debug;
 
-import com.fishep.java.debug.generic.Generic;
+import com.fishep.java.debug.generic.GenericSingleton;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,7 +15,7 @@ public class GenericSingletonTests {
 
     @Test
     void singleton(){
-        Generic<Object> instance = Generic.getInstance();
+        GenericSingleton<Object> instance = GenericSingleton.getInstance();
         instance.setT("hello");
         assertEquals("hello", instance.getT());
         assertInstanceOf(String.class, instance.getT());
@@ -24,7 +24,7 @@ public class GenericSingletonTests {
         assertEquals(100L, instance.getT());
         assertInstanceOf(Long.class, instance.getT());
 
-        Generic.print(GenericSingletonTests.class);
+        GenericSingleton.print(GenericSingletonTests.class);
     }
 
 }

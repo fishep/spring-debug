@@ -32,7 +32,7 @@ public class Children extends Parent implements ChildrenInterface {
     }
 
     @Override
-    public void childrenMethod2() {
+    public void childrenMethod2(String p) {
 
     }
 

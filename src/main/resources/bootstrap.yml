@@ -4,7 +4,7 @@ spring:
   application:
     name: spring-debug
   profiles:
-    active: dev
+    active: @profile@
   cloud:
     nacos:
       config:

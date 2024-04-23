@@ -9,6 +9,6 @@ public interface ChildrenInterface extends ParentInterface {
 
     void childrenMethod1();
 
-    void childrenMethod2();
+    void childrenMethod2(String p);
 
 }

@@ -14,6 +14,6 @@ public interface GrandpaInterface {
 
     void grandpaMethod1();
 
-    void grandpaMethod2();
+    void grandpaMethod2(String p);
 
 }

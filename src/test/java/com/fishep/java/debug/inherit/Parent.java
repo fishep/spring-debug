@@ -24,7 +24,7 @@ public class Parent extends Grandpa implements ParentInterface {
     }
 
     @Override
-    public void parentMethod2() {
+    public void parentMethod2(String p) {
 
     }
 }

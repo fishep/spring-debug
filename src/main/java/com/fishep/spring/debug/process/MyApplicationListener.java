@@ -9,13 +9,15 @@ import org.springframework.context.ApplicationEvent;
  * @Desc
  **/
 @Slf4j
-public class MyApplicationListener implements org.springframework.context.ApplicationListener {
+public class MyApplicationListener<T extends ApplicationEvent> implements org.springframework.context.ApplicationListener<T> {
+
     @Override
-    public void onApplicationEvent(ApplicationEvent event) {
+    public void onApplicationEvent(T event) {
         log.trace("onApplicationEvent begin");
 
         log.trace("event: " + event.getClass().getSimpleName());
 
         log.trace("onApplicationEvent end");
     }
+
 }
