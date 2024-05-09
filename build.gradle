@@ -20,6 +20,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'java-library'
+apply plugin: 'java-test-fixtures'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply from: 'version.gradle'
@@ -71,6 +72,8 @@ dependencies {
 //    implementation 'org.springframework.boot:spring-boot-starter-webflux'
 //    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
 //    api "org.springframework.cloud:spring-cloud-starter-bootstrap"
 //    api 'com.alibaba.nacos:nacos-client:2.2.3'
 //    api('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config') {
@@ -81,13 +84,21 @@ dependencies {
 //    }
 //    api 'com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor 'org.mapstruct:mapstruct-processor'
 
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
     testAnnotationProcessor 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.mapstruct:mapstruct-processor'
+
+
+    testFixturesImplementation 'org.projectlombok:lombok'
+    testFixturesImplementation 'io.projectreactor:reactor-core'
+    testFixturesImplementation 'org.springframework.boot:spring-boot-starter'
+
+    testFixturesAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 def profile = System.getProperty("profile") ?: "dev"
