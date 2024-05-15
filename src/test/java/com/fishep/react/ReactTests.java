@@ -21,7 +21,7 @@ import java.util.stream.Stream;
  * @Desc
  **/
 @Slf4j
-public class ReactTest {
+public class ReactTests {
 
     @Test
     void blockLast() {
@@ -29,15 +29,15 @@ public class ReactTest {
 
         Flux<Person> peopleFlux = personDao.rxListPeople();
 
-        log.trace("------------------");
+        log.info("------------------");
 
         Flux<List<Person>> listFlux = peopleFlux.buffer().log();
 
-        log.trace("------------------");
+        log.info("------------------");
 
         List<Person> people = listFlux.blockLast(Duration.ofSeconds(3));
 
-        log.trace("------------------");
+        log.info("------------------");
 
         assert people != null;
         people.forEach(person -> log.info(person.toString()));
@@ -49,15 +49,15 @@ public class ReactTest {
 
         Flux<Person> peopleFlux = personDao.rxDeferListPeople();
 
-        log.trace("------------------");
+        log.info("------------------");
 
         Flux<List<Person>> listFlux = peopleFlux.buffer().log();
 
-        log.trace("------------------");
+        log.info("------------------");
 
         List<Person> people = listFlux.blockLast(Duration.ofSeconds(3));
 
-        log.trace("------------------");
+        log.info("------------------");
 
         assert people != null;
         people.forEach(person -> log.info(person.toString()));
@@ -94,7 +94,6 @@ public class ReactTest {
         Mono<Ticket> ticket = flight.zipWith(passenger, (f, p) -> ticketService.rxBookTicket(f, p)).flatMap(abs -> abs);
         ticket.subscribe(ticketService::sendEmail);
 
-        TimeUnit.SECONDS.sleep(2);
     }
 
     @Test

@@ -26,8 +26,8 @@
     </appender>
 
     <springProfile name="dev">
-        <logger name="com.fishep" level="WARN"/>
-        <root level="WARN">
+        <logger name="com.fishep" level="INFO"/>
+        <root level="INFO">
             <appender-ref ref="CONSOLE"/>
         </root>
     </springProfile>

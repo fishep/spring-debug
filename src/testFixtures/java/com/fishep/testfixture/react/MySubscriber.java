@@ -23,7 +23,7 @@ public class MySubscriber<T> implements Subscriber<T> {
         log.trace("onNext");
 
         if (t instanceof String) {
-            log.info((String) t);
+            log.trace((String) t);
         }
     }
 

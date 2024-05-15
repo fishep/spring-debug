@@ -6,6 +6,8 @@ ext {
             "mybatis": "3.0.1",
             "mybatisplus": "3.5.3.1",
             "mybatisplusjoin": "1.4.5",
+            "kafka": "3.7.0",
+            "flink": "1.19.0",
             "springdoc": "2.1.0",
             "dubbo": "3.2.11"
     ]
@@ -18,6 +20,13 @@ ext {
             "mybatis": "org.mybatis.spring.boot:mybatis-spring-boot-starter:${version.mybatis}",
             "mybatisplus": "com.baomidou:mybatis-plus-boot-starter:${version.mybatisplus}",
             "mybatisplusjoin": "com.github.yulichang:mybatis-plus-join-boot-starter:${version.mybatisplusjoin}",
+            "kafka-clients": "org.apache.kafka:kafka-clients:${version.kafka}",
+            "kafka-streams": "org.apache.kafka:kafka-streams:${version.kafka}",
+            "flink-java": "org.apache.flink:flink-java:${version.flink}",
+            "flink-table-api-java": "org.apache.flink:flink-table-api-java:${version.flink}",
+            "flink-streaming-java": "org.apache.flink:flink-streaming-java:${version.flink}",
+            "flink-connector-files": "org.apache.flink:flink-connector-files:${version.flink}",
+            "flink-clients": "org.apache.flink:flink-clients:${version.flink}",
             "springdoc": "org.springdoc:springdoc-openapi-starter-webmvc-ui:${version.springdoc}",
             "dubbo": "org.apache.dubbo:dubbo-spring-boot-starter:${version.dubbo}",
             "dubbo-registry-nacos": "org.apache.dubbo:dubbo-registry-nacos:${version.dubbo}"

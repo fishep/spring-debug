@@ -1,9 +1,9 @@
-#server:
-#  port: ${PORT:8080}
-#spring:
-#  application:
-#    name: spring-debug
-#  profiles:
-#    active: dev
+server:
+  port: ${PORT:8080}
+spring:
+  application:
+    name: spring-debug
+  profiles:
+    active: @profile@
 #  main:
 #    allowBeanDefinitionOverriding: true

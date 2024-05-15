@@ -26,14 +26,14 @@
     </appender>
 
     <springProfile name="dev">
-        <logger name="com.fishep" level="TRACE"/>
-        <root level="TRACE">
+        <logger name="com.fishep" level="INFO"/>
+        <root level="INFO">
             <appender-ref ref="CONSOLE"/>
         </root>
     </springProfile>
     <springProfile name="test">
-        <logger name="com.fishep" level="INFO"/>
-        <root level="INFO">
+        <logger name="com.fishep" level="WARN"/>
+        <root level="WARN">
             <appender-ref ref="FILE"/>
         </root>
     </springProfile>

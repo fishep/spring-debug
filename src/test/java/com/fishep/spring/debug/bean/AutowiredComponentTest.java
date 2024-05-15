@@ -22,12 +22,12 @@ class AutowiredComponentTest {
 
     @Test
     void autowiredComponent() {
-        log.trace("autowiredComponent begin");
+        log.info("autowiredComponent begin");
 
         assertNotNull(autowiredComponent.getMyComponent());
         assertNull(autowiredComponent.getValue());
 
-        log.trace("autowiredComponent end");
+        log.info("autowiredComponent end");
     }
 
 }

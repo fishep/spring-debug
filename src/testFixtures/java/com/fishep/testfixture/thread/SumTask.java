@@ -29,11 +29,11 @@ public class SumTask extends RecursiveTask<Long> {
                 sum += this.array[i];
             }
 
-            // 故意放慢计算速度:
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-            }
+//            try {
+//                TimeUnit.SECONDS.sleep(1L);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
 
             return sum;
         }

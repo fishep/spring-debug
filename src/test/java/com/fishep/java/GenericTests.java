@@ -42,7 +42,7 @@ public class GenericTests {
     }
 
     @Test
-    void singleton(){
+    void singleton() {
         GenericSingleton<Object> instance = GenericSingleton.getInstance();
         instance.setT("hello");
         assertEquals("hello", instance.getT());
@@ -51,6 +51,11 @@ public class GenericTests {
         instance.setT(100L);
         assertEquals(100L, instance.getT());
         assertInstanceOf(Long.class, instance.getT());
+
+
+        GenericSingleton<String> singleton1 = GenericSingleton.<String>getInstance();
+        GenericSingleton<Long> singleton2 = GenericSingleton.<Long>getInstance();
+        assertSame(singleton1, singleton2);
     }
 
 }

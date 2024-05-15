@@ -23,18 +23,18 @@ public class ProxyTests {
         InvocationHandler handler = new InvocationHandler() {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                log.trace("proxy " + proxy.getClass().getName());
+                log.info("proxy " + proxy.getClass().getName());
 
                 if (method.getName() == "childrenMethod2") {
-                    log.trace("invoke childrenMethod2");
+                    log.info("invoke childrenMethod2");
                 }
                 if (method.getName() == "parentMethod2") {
-                    log.trace("invoke parentMethod2");
+                    log.info("invoke parentMethod2");
                 }
                 if (method.getName() == "grandpaMethod2") {
-                    log.trace("invoke grandpaMethod2");
+                    log.info("invoke grandpaMethod2");
                 }
-                log.trace("args " + Arrays.toString(args));
+                log.info("args " + Arrays.toString(args));
                 
 //                自己调自己
 //                method.invoke(proxy, args);

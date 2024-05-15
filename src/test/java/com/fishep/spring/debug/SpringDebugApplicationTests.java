@@ -10,8 +10,8 @@ class SpringDebugApplicationTests {
 
 	@Test
 	void doTest() {
-		log.trace("doTest begin");
-		log.trace("doTest end");
+		log.info("doTest begin");
+		log.info("doTest end");
 	}
 
 }

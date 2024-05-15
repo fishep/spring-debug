@@ -6,7 +6,6 @@ import reactor.core.publisher.Mono;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @Author fly.fei
@@ -25,13 +24,8 @@ public class TicketService {
      * @return
      */
     public Flight lookupFlight(String flightNo) {
-        log.info("lookupFlight");
+        log.trace("lookupFlight");
 
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return new Flight(flightNo);
     }
 
@@ -42,13 +36,8 @@ public class TicketService {
      * @return
      */
     public Passenger findPassenger(Long id) {
-        log.info("findPassenger");
+        log.trace("findPassenger");
 
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return new Passenger(id);
     }
 
@@ -60,7 +49,7 @@ public class TicketService {
      * @return
      */
     public Ticket bookTicket(Flight flight, Passenger passenger) {
-        log.info("bookTicket");
+        log.trace("bookTicket");
 
         return new Ticket(flight, passenger);
     }
@@ -72,13 +61,7 @@ public class TicketService {
      * @return
      */
     public boolean sendEmail(Ticket ticket) {
-        log.info("sendEmail");
-
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        log.trace("sendEmail");
 
         return true;
     }
@@ -97,14 +80,14 @@ public class TicketService {
 
     public Mono<Boolean> rxSendEmail(Ticket ticket) {
 
-        log.info("rxSendEmail");
+        log.trace("rxSendEmail");
 
         return Mono.fromCallable(() -> sendEmail(ticket));
     }
 
     public Future<Boolean> sendEmailAsync(Ticket ticket) {
 
-        log.info("sendEmailAsync");
+        log.trace("sendEmailAsync");
 
         return pool.submit(() -> sendEmail(ticket));
     }

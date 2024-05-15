@@ -73,6 +73,20 @@ dependencies {
 //    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'com.mysql:mysql-connector-j'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter'
+    implementation 'com.baomidou:mybatis-plus-boot-starter'
+    implementation 'com.github.yulichang:mybatis-plus-join-boot-starter'
+
+    implementation 'org.apache.flink:flink-clients'
+    implementation 'org.apache.flink:flink-table-api-java'
+    implementation 'org.apache.flink:flink-streaming-java'
+    implementation 'org.apache.flink:flink-connector-files'
+
+    implementation 'org.apache.kafka:kafka-clients'
+    implementation 'org.apache.kafka:kafka-streams'
+    implementation 'org.springframework.kafka:spring-kafka'
 
 //    api "org.springframework.cloud:spring-cloud-starter-bootstrap"
 //    api 'com.alibaba.nacos:nacos-client:2.2.3'
@@ -97,12 +111,16 @@ dependencies {
     testFixturesImplementation 'org.projectlombok:lombok'
     testFixturesImplementation 'io.projectreactor:reactor-core'
     testFixturesImplementation 'org.springframework.boot:spring-boot-starter'
+    testFixturesImplementation 'org.apache.flink:flink-streaming-java'
 
     testFixturesAnnotationProcessor 'org.projectlombok:lombok'
 }
 
 def profile = System.getProperty("profile") ?: "dev"
 processResources {
+    filesMatching('application.yml') {
+        filter org.apache.tools.ant.filters.ReplaceTokens, tokens: [profile: profile]
+    }
     filesMatching('bootstrap.yml') {
         filter org.apache.tools.ant.filters.ReplaceTokens, tokens: [profile: profile]
     }

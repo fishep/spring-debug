@@ -28,7 +28,7 @@ public class PersonDao {
     }
 
     private List<Person> query(String sql) {
-        log.info("query data from database;");
+        log.trace("query data from database;");
 
         List<Person> people = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
