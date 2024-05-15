@@ -1,0 +1,91 @@
+version: "3.8"
+
+services:
+  mysql-node1:
+    container_name: mysql-node1
+    image: percona/percona-xtradb-cluster:8.0.32
+    privileged: true
+    hostname: mysql-node1
+    environment:
+      - CLUSTER_NAME=pxc
+      - MYSQL_ROOT_PASSWORD=root
+      - XTRABACKUP_PASSWORD=xtrabackup
+#     - DISCOVERY_SERVICE=
+#     - CLUSTER_JOIN=
+    volumes:
+      - pxc-cert:/cert
+      - pxc-config:/etc/percona-xtradb-cluster.conf.d
+      - ./etc/mysql-node1.cnf:/etc/mysql/conf.d/mysql-node1.cnf:ro
+      - mysql-node1-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+  mysql-node2:
+    container_name: mysql-node2
+    image: percona/percona-xtradb-cluster:8.0.32
+    privileged: true
+    hostname: mysql-node2
+    environment:
+      - CLUSTER_NAME=pxc
+      - MYSQL_ROOT_PASSWORD=root
+      - XTRABACKUP_PASSWORD=xtrabackup
+#      - DISCOVERY_SERVICE=
+      - CLUSTER_JOIN=mysql-node1
+    depends_on:
+      mysql-node1:
+        condition: service_healthy
+    volumes:
+      - pxc-cert:/cert
+      - pxc-config:/etc/percona-xtradb-cluster.conf.d
+      - ./etc/mysql-node2.cnf:/etc/mysql/conf.d/mysql-node2.cnf:ro
+      - mysql-node2-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+  mysql-node3:
+    container_name: mysql-node3
+    image: percona/percona-xtradb-cluster:8.0.32
+    privileged: true
+    hostname: mysql-node3
+    environment:
+      - CLUSTER_NAME=pxc
+      - MYSQL_ROOT_PASSWORD=root
+      - XTRABACKUP_PASSWORD=xtrabackup
+#      - DISCOVERY_SERVICE=
+      - CLUSTER_JOIN=mysql-node1
+    depends_on:
+      mysql-node2:
+        condition: service_healthy
+    volumes:
+      - pxc-cert:/cert
+      - pxc-config:/etc/percona-xtradb-cluster.conf.d
+      - ./etc/mysql-node3.cnf:/etc/mysql/conf.d/mysql-node3.cnf:ro
+      - mysql-node3-data:/var/lib/mysql
+    ports:
+      - "3308:3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  pxc-cert:
+    external: true
+  pxc-config:
+    external: true
+  mysql-node1-data:
+  mysql-node2-data:
+  mysql-node3-data:
+
+# haproxy

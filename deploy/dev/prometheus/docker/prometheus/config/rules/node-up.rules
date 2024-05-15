@@ -1,0 +1,11 @@
+groups:
+- name: node-up
+  rules:
+  - alert: node-up
+    expr: up{job="promne"} == 0
+    for: 15s
+    labels:
+      severity: 1
+      team: node
+    annotations:
+      summary: "{{ $labels.instance }} 已停止运行超过 15s！"

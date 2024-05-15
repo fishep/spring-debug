@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  filebeat:
+    container_name: filebeat
+    image: elastic/filebeat:8.5.3
+    #depends_on:
+    #  - elasticsearch
+    #  - logstash
+    #  - kibana
+    command: filebeat -e -strict.perms=false
+    volumes:
+      - ./config/filebeat.yml:/usr/share/filebeat/filebeat.yml
+#      - 日志目录:/usr/share/filebeat/grace

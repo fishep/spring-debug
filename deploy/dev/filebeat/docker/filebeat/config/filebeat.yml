@@ -1,0 +1,63 @@
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: true
+
+processors:
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
+
+# ============================== logstash =====================================
+output.logstash:
+  hosts: ["logstash.dev:5044"] #192.168.88.158为logstash安装的服务器ip
+  enabled: true
+#============================== Kibana =====================================
+setup.kibana:
+  host: "kibana.dev:5601"
+
+#output.elasticsearch:
+#  hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
+#  username: '${ELASTICSEARCH_USERNAME:}'
+#  password: '${ELASTICSEARCH_PASSWORD:}'
+
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /usr/share/filebeat/grace/sso-server/*.log
+    tags: ["sso-server"]
+    multiline:
+      pattern: ^[0-9]{4}
+      negate: true
+      match: after
+      timeout: 3s
+  - type: log
+    enabled: true
+    paths:
+      - /usr/share/filebeat/grace/isc-server/*.log
+    tags: ["isc-server"]
+    multiline:
+      pattern: ^[0-9]{4}
+      negate: true
+      match: after
+      timeout: 3s
+  - type: log
+    enabled: true
+    paths:
+      - /usr/share/filebeat/grace/oms-server/*.log
+    tags: ["oms-server"]
+    multiline:
+      pattern: ^[0-9]{4}
+      negate: true
+      match: after
+      timeout: 3s
+  - type: log
+    enabled: true
+    paths:
+      - /usr/share/filebeat/grace/ems-server/*.log
+    tags: ["ems-server"]
+    multiline:
+      pattern: ^[0-9]{4}
+      negate: true
+      match: after
+      timeout: 3s

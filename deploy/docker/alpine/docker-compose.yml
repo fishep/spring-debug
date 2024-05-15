@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  alpine:
+    image: fishep/alpine:latest
+    container_name: alpine
+    ports:
+      - '1024:1024'
+    command: [ "sh", "-c", "while true; do sleep 10; done;" ]

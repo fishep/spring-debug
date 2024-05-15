@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+  mysql-master:
+    image: mysql:8.0.32
+    container_name: "mysql-master"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - LANG=C.UTF-8
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    volumes:
+      - ./etc/my-master.cnf:/etc/my.cnf:ro
+      - mysql_master_data:/var/lib/mysql
+
+  mysql-slave-1:
+    image: mysql:8.0.32
+    container_name: "mysql-slave-1"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - LANG=C.UTF-8
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    depends_on:
+      mysql-master:
+        condition: service_healthy
+    volumes:
+      - ./etc/my-slave-1.cnf:/etc/my.cnf:ro
+      - mysql_slave_1_data:/var/lib/mysql
+
+volumes:
+  mysql_master_data:
+  mysql_slave_1_data:

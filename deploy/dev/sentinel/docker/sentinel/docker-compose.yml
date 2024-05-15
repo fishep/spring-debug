@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  sentinel:
+    container_name: sentinel
+    build:
+      context: .
+      dockerfile: image/1.8.6/Dockerfile
+    image: fishep/sentinel:1.8.6
+    ports:
+      - "8858:8858"

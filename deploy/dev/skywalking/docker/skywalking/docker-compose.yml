@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  skoap:
+    container_name: skoap
+    image: apache/skywalking-oap-server:9.2.0
+    volumes:
+      - ./config/application.yml:/skywalking/config/application.yml
+    ports:
+      - "12800:12800"
+      - "11800:11800"
+
+  skui:
+    container_name: skui
+    image: apache/skywalking-ui:9.2.0
+    environment:
+      - SW_OAP_ADDRESS=http://skywalkingoapserver.dev:12800
+    depends_on:
+      - skoap
+    ports:
+      - "8082:8080"

@@ -1,0 +1,139 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mgmd
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app: mgmd
+      app.kubernetes.io/name: mgmd
+  serviceName: mgmd
+  replicas: 1
+  template:
+    metadata:
+      namespace: dev
+      labels:
+        app: mgmd
+        app.kubernetes.io/name: mgmd
+    spec:
+      containers:
+        - name: mgmd
+          image: mysql/mysql-cluster:8.0.32
+          command: [ "ndb_mgmd" ]
+          ports:
+            - name: mgmd
+              containerPort: 1186
+          volumeMounts:
+            - name: config-map
+              mountPath: /etc/my.cnf
+              subPath: my.cnf
+              readOnly: true
+            - name: config-map
+              mountPath: /etc/mysql-cluster.cnf
+              subPath: mysql-cluster.cnf
+              readOnly: true
+            - name: data
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: config-map
+          configMap:
+            name: mysql-cm
+  volumeClaimTemplates:
+    - metadata:
+        name: data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ndbd
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app: ndbd
+      app.kubernetes.io/name: ndbd
+  serviceName: ndbd
+  replicas: 2
+  template:
+    metadata:
+      namespace: dev
+      labels:
+        app: ndbd
+        app.kubernetes.io/name: ndbd
+    spec:
+      containers:
+      - name: ndbd
+        image: mysql/mysql-cluster:8.0.32
+        command: [ "ndbd" ]
+        ports:
+          - name: ndbd
+            containerPort: 2202
+        volumeMounts:
+        - name: config-map
+          mountPath: /etc/my.cnf
+          subPath: my.cnf
+          readOnly: true
+        - name: config-map
+          mountPath: /etc/mysql-cluster.cnf
+          subPath: mysql-cluster.cnf
+          readOnly: true
+        - name: data
+          mountPath: /var/lib/mysql
+      volumes:
+        - name: config-map
+          configMap:
+            name: mysql-cm
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysqld
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app: mysqld
+      app.kubernetes.io/name: mysqld
+  serviceName: mysqld
+  replicas: 2
+  template:
+    metadata:
+      namespace: dev
+      labels:
+        app: mysqld
+        app.kubernetes.io/name: mysqld
+    spec:
+      containers:
+        - name: mysqld
+          image: mysql/mysql-cluster:8.0.32
+          command: [ "mysqld" ]
+          ports:
+            - name: mysqld
+              containerPort: 3306
+          volumeMounts:
+            - name: config-map
+              mountPath: /etc/my.cnf
+              subPath: my.cnf
+              readOnly: true
+            - name: config-map
+              mountPath: /etc/mysql-cluster.cnf
+              subPath: mysql-cluster.cnf
+              readOnly: true
+      volumes:
+        - name: config-map
+          configMap:
+            name: mysql-cm

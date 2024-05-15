@@ -1,0 +1,83 @@
+version: "3.8"
+
+services:
+  management1:
+    container_name: management1
+    image: mysql/mysql-cluster:8.0.32
+    volumes:
+      - ./etc/my.cnf:/etc/my.cnf:ro
+      - ./etc/mysql-cluster.cnf:/etc/mysql-cluster.cnf:ro
+#    networks:
+#      mysql_cluster:
+#        ipv4_address: 192.168.0.2
+    command: [ "ndb_mgmd" ]
+
+  ndb1:
+    container_name: ndb1
+    image: mysql/mysql-cluster:8.0.32
+    volumes:
+      - ./etc/my.cnf:/etc/my.cnf:ro
+      - ./etc/mysql-cluster.cnf:/etc/mysql-cluster.cnf:ro
+#    networks:
+#      mysql_cluster:
+#        ipv4_address: 192.168.0.3
+    command: [ "ndbd" ]
+    depends_on:
+      - management1
+  ndb2:
+    container_name: ndb2
+    image: mysql/mysql-cluster:8.0.32
+    volumes:
+      - ./etc/my.cnf:/etc/my.cnf:ro
+      - ./etc/mysql-cluster.cnf:/etc/mysql-cluster.cnf:ro
+#    networks:
+#      mysql_cluster:
+#        ipv4_address: 192.168.0.4
+    command: [ "ndbd" ]
+    depends_on:
+      - management1
+
+  mysql1:
+    container_name: mysql1
+    image: mysql/mysql-cluster:8.0.32
+    volumes:
+      - ./etc/my.cnf:/etc/my.cnf:ro
+      - ./etc/mysql-cluster.cnf:/etc/mysql-cluster.cnf:ro
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - LANG=C.UTF-8
+#    ports:
+#      - "3306:3306"
+#    networks:
+#      mysql_cluster:
+#        ipv4_address: 192.168.0.10
+    command: [ "mysqld" ]
+    depends_on:
+      - management1
+      - ndb1
+      - ndb2
+
+  mysql2:
+    container_name: mysql2
+    image: mysql/mysql-cluster:8.0.32
+    volumes:
+      - ./etc/my.cnf:/etc/my.cnf:ro
+      - ./etc/mysql-cluster.cnf:/etc/mysql-cluster.cnf:ro
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - LANG=C.UTF-8
+    command: [ "mysqld" ]
+    depends_on:
+      - management1
+      - ndb1
+      - ndb2
+
+#volumes:
+#  mysql_data:
+
+#networks:
+#  mysql_cluster:
+#    ipam:
+#      driver: default
+#      config:
+#        - subnet: "192.168.0.0/16"

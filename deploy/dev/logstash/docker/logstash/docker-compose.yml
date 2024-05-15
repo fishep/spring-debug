@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  logstash:
+    container_name: logstash
+    image: logstash:8.5.3
+    ports:
+      - "9600:9600"
+      - "5044:5044"
+    volumes:
+      - ./config/:/usr/share/logstash/config/
+      - ./pipeline/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+#    depends_on:
+#      - elasticsearch

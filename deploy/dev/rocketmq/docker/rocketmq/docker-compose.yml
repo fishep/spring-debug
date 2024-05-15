@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  rmqnamesrv:
+    image: apache/rocketmq:4.9.4
+    container_name: rmqn
+    ports:
+      - "9876:9876"
+    privileged: true
+    command: [ "sh", "mqnamesrv" ]
+
+  rmqbroker:
+    image: apache/rocketmq:4.9.4
+    container_name: rmqb
+    ports:
+      - "10909:10909"
+      - "10911:10911"
+      - "10912:10912"
+    privileged: true
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 3072M
+    volumes:
+      - ./config/broker.conf:/etc/rocketmq/broker.conf
+    depends_on:
+      - rmqnamesrv
+    environment:
+      - NAMESRV_ADDR=rocketmqnamesrv.dev:9876
+    command: [ "sh", "mqbroker", "-c", "/etc/rocketmq/broker.conf" ]
+
+  rmqdashboard:
+    image: apacherocketmq/rocketmq-dashboard:latest
+    container_name: rmqd
+    ports:
+      - "8081:8080"
+    privileged: true
+    depends_on:
+      - rmqnamesrv
+    environment:
+      - JAVA_OPTS= -Xmx256M -Xms256M -Xmn128M -Drocketmq.namesrv.addr=rocketmqnamesrv.dev:9876

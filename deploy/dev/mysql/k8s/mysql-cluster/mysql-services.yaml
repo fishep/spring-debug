@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mgmd
+  namespace: dev
+  labels:
+    app: mgmd
+spec:
+  ports:
+  - port: 1186
+  clusterIP: None
+  selector:
+    app: mgmd
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ndbd
+  namespace: dev
+  labels:
+    app: ndbd
+spec:
+  ports:
+    - port: 2202
+  clusterIP: None
+  selector:
+    app: ndbd
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysqld
+  namespace: dev
+  labels:
+    app: mysqld
+spec:
+  ports:
+    - port: 3306
+  clusterIP: None
+  selector:
+    app: mysqld

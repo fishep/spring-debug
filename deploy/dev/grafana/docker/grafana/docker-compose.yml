@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  grafana:
+    # 用户名 密码 admin admin
+    container_name: grafana
+    image: grafana/grafana:10.0.3
+    ports:
+      - "3000:3000"

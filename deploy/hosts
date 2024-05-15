@@ -1,0 +1,116 @@
+﻿########### devops
+192.168.1.129    gitlab.devops
+192.168.1.129    sonarqube.devops
+192.168.1.129    harbor.devops
+192.168.1.129    jenkins.devops
+
+########### 开发环境
+192.168.1.1    mysql.dev
+192.168.1.1    redis.dev
+
+192.168.1.1    nacos.dev
+192.168.1.1    sentinel.dev
+192.168.1.1    seata.dev
+
+192.168.1.1    rocketmqnamesrv.dev
+192.168.1.1    rocketmqbroker.dev
+192.168.1.1    rocketmqdashboard.dev
+
+192.168.1.1    elasticsearch.dev
+192.168.1.1    logstash.dev
+192.168.1.1    kibana.dev
+
+192.168.1.1    skywalkingoapserver.dev
+192.168.1.1    skywalkingui.dev
+
+192.168.1.1    prometheus.dev
+192.168.1.1    prometheusalertmanager.dev
+192.168.1.1    prometheusnodeexporter.dev
+192.168.1.1    grafana.dev
+
+192.168.1.1    kafka.dev
+
+
+192.168.1.1    shop.service.dev
+192.168.1.1    back.service.dev
+192.168.1.1    open.service.dev
+192.168.1.1    shop-service.dev
+192.168.1.1    back-service.dev
+192.168.1.1    open-service.dev
+192.168.1.1    bss-server.dev
+192.168.1.1    sso-server.dev
+192.168.1.1    isc-server.dev
+
+############ 测试环境
+192.168.1.10    mysql.test
+192.168.1.10    redis.test
+
+192.168.1.10    nacos.test
+192.168.1.10    sentinel.test
+192.168.1.10    seata.test
+
+192.168.1.10    rocketmqnamesrv.test
+192.168.1.10    rocketmqbroker.test
+192.168.1.10    rocketmqdashboard.test
+
+192.168.1.10    elasticsearch.test
+192.168.1.10    logstash.test
+192.168.1.10    kibana.test
+
+192.168.1.10    skywalkingoapserver.test
+192.168.1.10    skywalkingui.test
+
+192.168.1.10    prometheus.test
+192.168.1.10    prometheusalertmanager.test
+192.168.1.10    prometheusnodeexporter.test
+192.168.1.10    grafana.test
+
+192.168.1.10    kafka.test
+
+
+192.168.1.10    shop.service.test
+192.168.1.10    back.service.test
+192.168.1.10    open.service.test
+192.168.1.10    shop-service.test
+192.168.1.10    back-service.test
+192.168.1.10    open-service.test
+192.168.1.10    bss-server.test
+192.168.1.10    sso-server.test
+192.168.1.10    isc-server.test
+
+########### 生产环境
+10.33.29.12    mysql.prod
+10.33.29.12    redis.prod
+
+10.33.29.12    nacos.prod
+10.33.29.12    sentinel.prod
+10.33.29.12    seata.prod
+
+10.33.29.12    rocketmqnamesrv.prod
+10.33.29.12    rocketmqbroker.prod
+10.33.29.12    rocketmqdashboard.prod
+
+10.33.29.12    elasticsearch.prod
+10.33.29.12    logstash.prod
+10.33.29.12    kibana.prod
+
+10.33.29.12    skywalkingoapserver.prod
+10.33.29.12    skywalkingui.prod
+
+10.33.29.12    prometheus.prod
+10.33.29.12    prometheusalertmanager.prod
+10.33.29.12    prometheusnodeexporter.prod
+10.33.29.12    grafana.prod
+
+10.33.29.12    kafka.prod
+
+
+10.33.29.12    shop.service.prod
+10.33.29.12    back.service.prod
+10.33.29.12    open.service.prod
+10.33.29.12    shop-service.prod
+10.33.29.12    back-service.prod
+10.33.29.12    open-service.prod
+10.33.29.12    bss-server.prod
+10.33.29.12    sso-server.prod
+10.33.29.12    isc-server.prod

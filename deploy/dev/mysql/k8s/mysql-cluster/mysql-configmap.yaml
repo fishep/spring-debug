@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-cm
+  namespace: dev
+  labels:
+    app: mysql-cm
+data:
+  my.cnf: |
+    [mysqld]
+    ndbcluster
+    ndb-connectstring=mgmd-0.mgmd
+    user=mysql
+    default-storage-engine=ndbcluster
+
+    [mysql_cluster]
+    ndb-connectstring=mgmd-0.mgmd
+  mysql-cluster.cnf: |
+    [ndbd default]
+    NoOfReplicas=2
+    DataMemory=80M
+    IndexMemory=18M
+
+    [ndb_mgmd]
+    NodeId=1
+    hostname=mgmd-0.mgmd
+    datadir=/var/lib/mysql
+
+    [ndbd]
+    NodeId=2
+    hostname=ndbd-0.ndbd
+    datadir=/var/lib/mysql
+
+    [ndbd]
+    NodeId=3
+    hostname=ndbd-1.ndbd
+    datadir=/var/lib/mysql
+
+    [mysqld]
+    NodeId=4
+    hostname=mysqld-0.mysqld
+
+    [mysqld]
+    NodeId=5
+    hostname=mysqld-1.mysqld

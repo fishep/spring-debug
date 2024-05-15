@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+      app.kubernetes.io/name: mysql
+  serviceName: mysql
+  replicas: 1
+  template:
+    metadata:
+      namespace: dev
+      labels:
+        app: mysql
+        app.kubernetes.io/name: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:8.0.32
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        - name: LANG
+          value: C.UTF-8
+        ports:
+        - name: mysql
+          containerPort: 3306
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/mysql
+        resources:
+          requests:
+            cpu: 500m
+            memory: 1Gi
+        livenessProbe:
+          exec:
+            command: ["mysqladmin", "ping"]
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+        readinessProbe:
+          exec:
+            # 检查我们是否可以通过 TCP 执行查询（skip-networking 是关闭的）。
+            command: ["mysql", "-uroot", "-proot", "-h127.0.0.1", "-e", "SELECT 1"]
+          initialDelaySeconds: 5
+          periodSeconds: 2
+          timeoutSeconds: 1
+  volumeClaimTemplates:
+  - metadata:
+      name: data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi

@@ -1,0 +1,66 @@
+{
+  "setting": {
+    "project": "spring-debug",
+    "saveRequestLog": false,
+    "enablePreRequestScript": true,
+    "enablePostRequestScript": true,
+    "preRequestScriptPath": "",
+    "postRequestScriptPath": "",
+    "preRequestScriptContent": "",
+    "postRequestScriptContent": "",
+    "preRequestScriptContentLastModifiedTime": "",
+    "postRequestScriptContentLastModifiedTime": "",
+    "requestTimeout": 0,
+    "generateMultilineCurlSnippet": false,
+    "supportForWslPath": false,
+    "supportMinifyJson": false,
+    "downloadDirectory": ""
+  },
+  "environment": {
+    "project": "spring-debug",
+    "envList": [
+      {
+        "env": "DEV",
+        "items": [
+          {
+            "enabled": true,
+            "key": "baseUrl",
+            "value": "http://localhost:8080/api"
+          }
+        ]
+      }
+    ],
+    "globalHeaderList": [],
+    "script": null
+  },
+  "header": {
+    "project": "spring-debug",
+    "globalHeaderList": [
+      {
+        "enabled": true,
+        "key": "Accept",
+        "value": "application/json, text/plain, */*"
+      },
+      {
+        "enabled": true,
+        "key": "Accept-Language",
+        "value": "zh-CN"
+      },
+      {
+        "enabled": false,
+        "key": "Authorization",
+        "value": "Bearer token"
+      },
+      {
+        "enabled": false,
+        "key": "Platform",
+        "value": "{\"type\":\"BACK\"}"
+      },
+      {
+        "enabled": false,
+        "key": "User",
+        "value": "{\"id\":{\"value\":1},\"name\":{\"value\":\"root\"},\"type\":\"ADMIN\"}"
+      }
+    ]
+  }
+}

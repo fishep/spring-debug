@@ -1,0 +1,14 @@
+version: "3.8"
+
+services:
+  seata:
+    container_name: seata
+    image: seataio/seata-server:1.7.0
+    ports:
+      - "7091:7091"
+      - "8091:8091"
+#    depends_on:
+#      nacos:
+#        condition: service_healthy
+    volumes:
+      - ./config/application.yml:/seata-server/resources/application.yml

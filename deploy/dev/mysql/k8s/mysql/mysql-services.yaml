@@ -1,0 +1,16 @@
+# 为 StatefulSet 成员提供稳定的 DNS 表项的无头服务（Headless Service）
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+  namespace: dev
+  labels:
+    app: mysql
+    app.kubernetes.io/name: mysql
+spec:
+  ports:
+  - name: mysql
+    port: 3306
+  clusterIP: None
+  selector:
+    app: mysql
