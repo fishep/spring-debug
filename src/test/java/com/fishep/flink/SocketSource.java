@@ -10,8 +10,6 @@ import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 /**
  * @Author fly.fei
  * @Date 2024/5/14 15:50
@@ -20,10 +18,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Slf4j
 public class SocketSource {
 
+    private static String hostname = "127.0.0.1";
+//    private static String hostname = "alpine";
+
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        DataStreamSource<String> source = env.socketTextStream("127.0.0.1", 1024);
+        DataStreamSource<String> source = env.socketTextStream(hostname, 1024);
 
         SingleOutputStreamOperator<String> map = source.map(s -> {
             log.info(s);
@@ -40,7 +41,7 @@ public class SocketSource {
 
         JobExecutionResult result = env.execute("WordCount from socket");
 
-        assertNotNull(result);
+//        assertNotNull(result);
     }
 
 }
