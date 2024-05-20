@@ -6,7 +6,11 @@ services:
     container_name: "jobmanager"
     ports:
       - "8081:8081"
+      - "8082:8082"
     command: jobmanager
+    volumes:
+      - ./conf/config.yaml:/opt/flink/conf/config.yaml
+#      - completed-jobs:/opt/flink/completed-jobs
     environment:
       - |
         FLINK_PROPERTIES=
@@ -18,9 +22,15 @@ services:
     depends_on:
       - jobmanager
     command: taskmanager
+    volumes:
+      - ./conf/config.yaml:/opt/flink/conf/config.yaml
+#      - completed-jobs:/opt/flink/completed-jobs
     scale: 1
     environment:
       - |
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
         taskmanager.numberOfTaskSlots: 2
+
+#volumes:
+#  completed-jobs:

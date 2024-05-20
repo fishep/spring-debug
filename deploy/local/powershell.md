@@ -15,4 +15,7 @@ mklink /d home mysql-8.0.32-winx64
 
 rmdir home
 
+$Env:HADOOP_HOME = "/opt/hadoop"
+$Env:HADOOP_HOME
+
 ```
