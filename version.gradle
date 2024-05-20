@@ -26,6 +26,7 @@ ext {
             "flink-table-api-java": "org.apache.flink:flink-table-api-java:${version.flink}",
             "flink-streaming-java": "org.apache.flink:flink-streaming-java:${version.flink}",
             "flink-connector-files": "org.apache.flink:flink-connector-files:${version.flink}",
+            "flink-connector-kafka": "org.apache.flink:flink-connector-kafka:${version.flink}",
             "flink-runtime-web": "org.apache.flink:flink-runtime-web:${version.flink}",
             "springdoc": "org.springdoc:springdoc-openapi-starter-webmvc-ui:${version.springdoc}",
             "dubbo": "org.apache.dubbo:dubbo-spring-boot-starter:${version.dubbo}",
