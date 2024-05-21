@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  superset:
+    image: apache/superset
+    container_name: "superset"
+    ports:
+      - "8088:8088"
+    environment:
+      SUPERSET_SECRET_KEY: your_secret_key_here
