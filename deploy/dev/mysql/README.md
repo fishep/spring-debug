@@ -14,34 +14,34 @@ cd init-sql && for SQL in *.sql; do mysql -uroot -p"root" < $SQL; done
 
 ### 数据库测试
 ```shell
-mysql -utest -ptest
+mysql -udemo -pdemo
 ```
 ```mysql
-USE test;
-select * from test;
-insert into `test` (`comment`) values ('this is a test');
-update `test` set `comment` = '这是一个测试' where `id` = 1;
-delete from `test` where `id` = 1;
+USE demo;
+select * from demo;
+insert into `demo` (`comment`) values ('this is a demo');
+update `demo` set `comment` = '这是一个测试' where `id` = 1;
+delete from `demo` where `id` = 1;
 ```
 
 ### 参考命令
 ```shell
-mysql < test.sql
-mysql –uroot –proot < test.sql
-mysql –uroot –proot -Dtest < test.sql
+mysql < demo.sql
+mysql –uroot –proot < demo.sql
+mysql –uroot –proot -Ddemo < demo.sql
 ```
 ```mysql
 show databases;
 show tables;
 select * from mysql.user;
-select * from mysql.user where User = "test";
+select * from mysql.user where User = "demo";
 show variables like '%character%';
 
-CREATE DATABASE test;
-DROP DATABASE test;
+CREATE DATABASE demo;
+DROP DATABASE demo;
 
 show engines;
-show create table test;
+show create table demo;
 set global default_storage_engine = 'ndbcluster';
 
 SHOW variables like '%log_bin%';

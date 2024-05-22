@@ -9,7 +9,7 @@
 #### mysql
 ```shell
 cd mysql
-docker compose -p grace up -d 
+docker compose -p service up -d 
 ```
 
 #### mysql-cluster
