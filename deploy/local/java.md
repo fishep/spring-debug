@@ -27,3 +27,7 @@ export JAVA_HOME=/e/java/jdk/corretto-1.8.0_342
 export PATH="$JAVA_HOME/bin:$PATH"
 
 ```
+
+```shell
+jps
+```
