@@ -89,29 +89,29 @@ public class RedissonTests {
     }
 
     /**
-     * »º´æÒ»ÖÂĞÔË¼Â·
+     * ç¼“å­˜ä¸€è‡´æ€§æ€è·¯
      *
-     * ¶Á      ¶Áredis  ¶Ámysql  Ğ´redis
-        if(¶ÁredisÓĞÊı¾İ){
+     * è¯»      è¯»redis  è¯»mysql  å†™redis
+        if(è¯»redisæœ‰æ•°æ®){
             return
         }
-        if(¶ÁredisÎŞÊı¾İ){
-            ¶ÁËø
-                if(¶ÁredisÓĞÊı¾İ){
+        if(è¯»redisæ— æ•°æ®){
+            è¯»é”
+                if(è¯»redisæœ‰æ•°æ®){
                     return
                 }
-                if(¶ÁredisÎŞÊı¾İ){
-                    ¶Ámysql
-                    Ğ´redis
+                if(è¯»redisæ— æ•°æ®){
+                    è¯»mysql
+                    å†™redis
                 }
-            ½âËø
+            è§£é”
         }
 
-     * Ğ´      É¾redis  Ğ´mysql  É¾redis
-        Ğ´Ëø
-            É¾redis
-            Ğ´mysql
-        ½âËø
+     * å†™      åˆ redis  å†™mysql  åˆ redis
+        å†™é”
+            åˆ redis
+            å†™mysql
+        è§£é”
      */
 
 }
