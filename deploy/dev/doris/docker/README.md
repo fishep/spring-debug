@@ -50,6 +50,12 @@ PROPERTIES (
 cd /opt
 curl  --location-trusted -u root: -T test.csv -H "column_separator:," http://127.0.0.1:8030/api/demo/example_tbl/_stream_load
 
+mysql -uroot -P9030 -h127.0.0.1
+use demo;
+select * from example_tbl;
+
+# http://127.0.0.1:8030/login -- u/p: [root/ ]
+
 ```
 
 ### CATALOG

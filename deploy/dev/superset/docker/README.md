@@ -1,6 +1,7 @@
+# 基于docker部署superset服务
+
 ### superset
 ```shell
-
 docker compose -p service up -d 
 
 docker exec -it superset superset fab create-admin \
@@ -17,6 +18,7 @@ docker exec -it superset superset load_examples
 docker exec -it superset superset init
 
 # http://localhost:8088/login/ -- u/p: [admin/admin]
+# http://localhost:8088/swagger/v1 -- superset api
 
 ```
 
