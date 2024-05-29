@@ -1,28 +1,34 @@
-# doris
+# 基于docker部署doris服务
 
-> 在docker中部署doris
-
-# doris 测试
-
+### doris
 ```shell
-docker cp ./test.csv alpine:/opt
 
 docker run -it --privileged --pid=host --name=change_count debian nsenter -t 1 -m -u -n -i sh
+#docker start -ai change_count
+sysctl -q vm.max_map_count
 sysctl -w vm.max_map_count=2000000
 
-docker-compose -p grace -f docker-compose-amd64.yaml up -d
-docker-compose -p grace -f docker-compose-arm64.yaml up -d
-
-curl  --location-trusted -u root: -T test.csv -H "column_separator:," http://127.0.0.1:8030/api/demo/example_tbl/_stream_load
+docker compose -p service -f docker-compose-amd64.yaml up -d 
+#docker compose -p service -f docker-compose-arm64.yaml up -d 
 
 ```
 
-```sql
+### doris test
+```shell
+docker cp ./test.csv doris-fe:/opt
 
+docker exec -it doris-fe bash
+
+# 检查 Doris 是否启动成功
+curl http://127.0.0.1:8030/api/bootstrap
+
+# 
+mysql -uroot -P9030 -h127.0.0.1
+#查看 FE 运行状态
+show frontends\G;
+#
 create database demo;
-
 use demo;
-
 CREATE TABLE IF NOT EXISTS demo.example_tbl
 (
     `user_id` LARGEINT NOT NULL COMMENT "用户id",
@@ -41,8 +47,13 @@ PROPERTIES (
 "replication_allocation" = "tag.location.default: 1"
 );
 
+cd /opt
+curl  --location-trusted -u root: -T test.csv -H "column_separator:," http://127.0.0.1:8030/api/demo/example_tbl/_stream_load
 
+```
 
+### CATALOG
+```shell
 CREATE CATALOG jdbc_mysql PROPERTIES (
     "type"="jdbc",
     "user"="root",
