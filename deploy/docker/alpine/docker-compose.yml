@@ -6,4 +6,5 @@ services:
     container_name: alpine
     ports:
       - '1024:1024'
+      - '1025:1025'
     command: [ "sh", "-c", "while true; do sleep 10; done;" ]
