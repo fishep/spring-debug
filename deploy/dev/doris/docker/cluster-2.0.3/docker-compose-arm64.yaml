@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+  doris-fe:
+    image: fishep/doris:2.0.3-fe-arm64
+    container_name: "doris-fe"
+    hostname: fe
+    environment:
+      - FE_SERVERS=fe1:10.33.29.10:9010
+      - FE_ID=1
+#    ports:
+#      - "8030:8030"
+#      - "9030:9030"
+#    volumes:
+#      - /data/fe/doris-meta/:/opt/apache-doris/fe/doris-meta/
+#      - /data/fe/log/:/opt/apache-doris/fe/log/
+    network_mode: host
+  doris-be:
+    image: fishep/doris:2.0.3-be-arm64
+    container_name: "doris-be"
+    hostname: be
+    environment:
+      - FE_SERVERS=fe1:10.33.29.10:9010
+      - BE_ADDR=10.33.29.10:9050
+#    ports:
+#      - "8040:8040"
+#    volumes:
+#      - /data/be/storage/:/opt/apache-doris/be/storage/
+#      - /data/be/script/:/docker-entrypoint-initdb.d/
+    depends_on:
+      - doris-fe
+    network_mode: host
