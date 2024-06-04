@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  doris-fe:
+    image: "apache/doris:2.0.0_alpha-fe-x86_64"
+    container_name: "doris-fe"
+    hostname: "fe"
+    volumes:
+      #      - /data/doris-fe/doris-meta:/opt/apache-doris/fe/doris-meta
+      #      - /data/doris-fe/log:/opt/apache-doris/fe/log
+      - E:\data\doris-fe\doris-meta:/opt/apache-doris/fe/doris-meta
+      - E:\data\doris-fe\log:/opt/apache-doris/fe/log
+    environment:
+      - FE_SERVERS=fe1:172.20.80.2:9010
+      - FE_ID=1
+    ports:
+      - "8030:8030"
+      - "9030:9030"
+    networks:
+      doris_net:
+        ipv4_address: 172.20.80.2
+  doris-be:
+    image: "apache/doris:2.0.0_alpha-be-x86_64"
+    container_name: "doris-be"
+    hostname: "be"
+    volumes:
+      #      - /data/doris-be/storage:/opt/apache-doris/be/storage
+      #      - /data/doris-be/script:/docker-entrypoint-initdb.d
+      #      - /data/doris-be/log:/opt/apache-doris/be/log
+      - E:\data\doris-be\storage:/opt/apache-doris/be/storage
+      - E:\data\doris-be\script:/docker-entrypoint-initdb.d
+      - E:\data\doris-be\log:/opt/apache-doris/be/log
+    depends_on:
+      - doris-fe
+    environment:
+      - FE_SERVERS=fe1:172.20.80.2:9010
+      - BE_ADDR=172.20.80.3:9050
+    ports:
+      - "8040:8040"
+    networks:
+      doris_net:
+        ipv4_address: 172.20.80.3
+
+networks:
+  doris_net:
+    ipam:
+      config:
+        - subnet: 172.20.80.0/24

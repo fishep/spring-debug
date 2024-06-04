@@ -21,5 +21,9 @@ docker run -it --name=alpine fishep/alpine:amd64 bash
 docker commit alpine fishep/alpine:amd64
 docker push fishep/alpine:amd64
 
+docker system prune
+
+truncate -s 0 /var/lib/docker/containers/*/*/*.log
+
 ```
 

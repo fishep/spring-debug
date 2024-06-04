@@ -2,12 +2,15 @@
 
 ### doris
 ```shell
+#windows主机 找到文件 ~/.wslconfig 配置 kernelCommandLine = vsyscall=emulate
 
 docker run -it --privileged --pid=host --name=change_count debian nsenter -t 1 -m -u -n -i sh
 #docker start -ai change_count
 sysctl -q vm.max_map_count
 sysctl -w vm.max_map_count=2000000
 
+#cd cluster-1.2.2
+cd cluster-2.0.0
 docker compose -p service -f docker-compose-amd64.yaml up -d 
 #docker compose -p service -f docker-compose-arm64.yaml up -d 
 
@@ -26,13 +29,15 @@ curl http://127.0.0.1:8030/api/bootstrap
 mysql -uroot -P9030 -h127.0.0.1
 #查看 FE 运行状态
 show frontends\G;
+show backends\G;
 #
 create database demo;
 use demo;
 CREATE TABLE IF NOT EXISTS demo.example_tbl
 (
     `user_id` LARGEINT NOT NULL COMMENT "用户id",
-    `date` DATE NOT NULL COMMENT "数据灌入日期时间",
+#    `date` DATE NOT NULL COMMENT "数据灌入日期时间",
+    `date` DATEV2 NOT NULL COMMENT "数据灌入日期时间",
     `city` VARCHAR(20) COMMENT "用户所在城市",
     `age` SMALLINT COMMENT "用户年龄",
     `sex` TINYINT COMMENT "用户性别",
