@@ -1,11 +1,11 @@
 ### hadoop 管理
 ````shell
-export HADOOP_HOME=/opt/hadoop
-$Env:HADOOP_HOME = "/opt/hadoop"
+#export HADOOP_HOME=/opt/hadoop
+#$Env:HADOOP_HOME = "/opt/hadoop"
 
-MAPRED-SITE.XML_yarn.app.mapreduce.am.env=HADOOP_MAPRED_HOME=$HADOOP_HOME
-MAPRED-SITE.XML_mapreduce.map.env=HADOOP_MAPRED_HOME=$HADOOP_HOME
-MAPRED-SITE.XML_mapreduce.reduce.env=HADOOP_MAPRED_HOME=$HADOOP_HOME
+#MAPRED-SITE.XML_yarn.app.mapreduce.am.env=HADOOP_MAPRED_HOME=$HADOOP_HOME
+#MAPRED-SITE.XML_mapreduce.map.env=HADOOP_MAPRED_HOME=$HADOOP_HOME
+#MAPRED-SITE.XML_mapreduce.reduce.env=HADOOP_MAPRED_HOME=$HADOOP_HOME
 
 docker compose -p service up -d 
 
@@ -21,6 +21,7 @@ hadoop fs -ls /flink
 hadoop fs -mkdir /flink
 hadoop fs -mkdir -p /flink/completed-jobs
 hadoop fs -chmod 777 /flink/completed-jobs
+hadoop fs -rm -r -f /completed-jobs
 
 #cat etc/hadoop/core-site.xml
 #hdfs://namenode/flink/completed-jobs
