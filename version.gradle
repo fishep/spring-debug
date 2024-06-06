@@ -30,6 +30,7 @@ ext {
             "flink-connector-files": "org.apache.flink:flink-connector-files:${version.flink}",
             "flink-connector-kafka": "org.apache.flink:flink-connector-kafka:${version.flink}",
             "flink-runtime-web": "org.apache.flink:flink-runtime-web:${version.flink}",
+            "flink-cep": "org.apache.flink:flink-cep:${version.flink}",
             "springdoc": "org.springdoc:springdoc-openapi-starter-webmvc-ui:${version.springdoc}",
             "dubbo": "org.apache.dubbo:dubbo-spring-boot-starter:${version.dubbo}",
             "dubbo-registry-nacos": "org.apache.dubbo:dubbo-registry-nacos:${version.dubbo}"
