@@ -23,6 +23,7 @@ docker exec -it namenode bash
 yarn-session.sh -nm test
 cd /opt/flink/
 flink run -c com.fishep.flink.job.SocketSource flink-0.0.1-SNAPSHOT.jar
+flink run -c com.fishep.flink.job.CheckPointConfig flink-0.0.1-SNAPSHOT.jar
 
 #application 模式
 flink run-application -t yarn-application -c com.fishep.flink.job.SocketSource flink-0.0.1-SNAPSHOT.jar
@@ -37,7 +38,7 @@ flink savepoint :jobId [:targetDirectory]
 flink stop --savepointPath [:targetDirectory] :jobId
 #flink stop --savepointPath hdfs://namenode:8020/flink-savepoints/savepoint-test -yid application_1717572546839_0010 66f44a35c87090f0a0f3b45187860110
 flink run -s :savepointPath [:runArgs]
-#flink run -s hdfs://namenode:8020/flink-savepoints/savepoint-f236a8-d70c10c06dcd -yid application_1717572546839_0007 -c com.fishep.flink.job.SocketSource flink-0.0.1-SNAPSHOT.jar
-#flink run-application -s hdfs://namenode:8020/flink-savepoints/savepoint-f236a8-d70c10c06dcd -t yarn-application -c com.fishep.flink.job.SocketSource flink-0.0.1-SNAPSHOT.jar
+#flink run -s hdfs://namenode:8020/flink-checkpoints/5738ac60066d81d031db94cf93d4fe41/chk-108 -yid application_1717579427412_0002 -c com.fishep.flink.job.CheckPointConfig flink-0.0.1-SNAPSHOT.jar
+#flink run-application -s hdfs://namenode:8020/flink-savepoints/savepoint-test -t yarn-application -c com.fishep.flink.job.SocketSource flink-0.0.1-SNAPSHOT.jar
 
 ````
