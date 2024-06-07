@@ -5,6 +5,7 @@
 #windows主机 找到文件 ~/.wslconfig 配置 kernelCommandLine = vsyscall=emulate
 
 docker run -it --privileged --pid=host --name=change_count debian nsenter -t 1 -m -u -n -i sh
+# docker 每次重启都要设置
 #docker start -ai change_count
 sysctl -q vm.max_map_count
 sysctl -w vm.max_map_count=2000000

@@ -1,4 +1,13 @@
-#skywalking
+# 基于docker部署skywalking服务
+
+#### skywalking
+```shell
+
+docker compose -p service up -d 
+
+# http://localhost:8082/general -- u/p: [/]
+
+```
 
 ### 客户端
 ```shell

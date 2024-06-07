@@ -1,5 +1,7 @@
 ### docker部署，将flink部署到hadoop容器
 ````shell
+# 先启动hadoop服务
+
 #下载 解压 https://www.apache.org/dyn/closer.lua/flink/flink-1.19.0/flink-1.19.0-bin-scala_2.12.tgz
 
 #拷贝

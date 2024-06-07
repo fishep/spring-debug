@@ -1,3 +1,5 @@
+# 基于docker部署hadoop服务
+
 ### hadoop 管理
 ````shell
 #export HADOOP_HOME=/opt/hadoop
@@ -6,6 +8,8 @@
 #MAPRED-SITE.XML_yarn.app.mapreduce.am.env=HADOOP_MAPRED_HOME=$HADOOP_HOME
 #MAPRED-SITE.XML_mapreduce.map.env=HADOOP_MAPRED_HOME=$HADOOP_HOME
 #MAPRED-SITE.XML_mapreduce.reduce.env=HADOOP_MAPRED_HOME=$HADOOP_HOME
+
+cd cluster
 
 docker compose -p service up -d 
 

@@ -1,5 +1,9 @@
+# 基于docker部署flink服务
+> 只调试了session模式，未调试application，sql-client模式
+
 ### flink 添加job
 ````shell
+cd session/
 
 docker compose -p service up -d 
 
