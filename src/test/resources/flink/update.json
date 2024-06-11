@@ -1,0 +1,30 @@
+{
+  "before": {
+    "id": 13,
+    "comment": "this is a test"
+  },
+  "after": {
+    "id": 13,
+    "comment": "this is a update test"
+  },
+  "source": {
+    "version": "1.9.8.Final",
+    "connector": "mysql",
+    "name": "mysql_binlog_source",
+    "ts_ms": 1718102680000,
+    "snapshot": "false",
+    "db": "demo",
+    "sequence": null,
+    "table": "demo",
+    "server_id": 1,
+    "gtid": "dced834d-27cd-11ef-8a5f-0242ac180002:30",
+    "file": "mysql-bin.000003",
+    "pos": 7474,
+    "row": 0,
+    "thread": 1292,
+    "query": null
+  },
+  "op": "u",
+  "ts_ms": 1718102680879,
+  "transaction": null
+}

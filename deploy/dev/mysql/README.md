@@ -53,6 +53,38 @@ SHOW binlog events IN 'e4c26551355e-bin.000003';
 SHOW binlog events IN '774ab89ac8bd-bin.000003';
 SHOW binlog events IN '774ab89ac8bd-bin.000003' LIMIT 10;
 
-SELECT @@server_id,NOW()
+SELECT @@server_id,NOW();
+select @@server_uuid,NOW();
+
+show master status;
+SHOW binlog events IN 'mysql-bin.000003';
+
+```
+
+### 开启 gtid_mode
+```mysql
+# 直接配置，重启
+# gtid_mode = on
+# enforce_gtid_consistency = on
+
+# 命令行
+
+# 主库
+set global ENFORCE_GTID_CONSISTENCY = WARN;
+set global ENFORCE_GTID_CONSISTENCY = ON;
+
+set global GTID_MODE = OFF_PERMISSIVE;
+set global GTID_MODE = ON_PERMISSIVE;
+# 检查是否还有事务没有结束，值必须为 0
+SHOW STATUS LIKE 'ONGOING_ANONYMOUS_TRANSACTION_COUNT';
+show slave status;
+set global GTID_MODE = ON;
+
+show global variables like '%gtid%';
+
+# 从库
+stop slave;
+CHANGE MASTER TO MASTER_AUTO_POSITION = 1;
+start slave;
 
 ```
