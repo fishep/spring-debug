@@ -25,5 +25,8 @@ docker system prune
 
 truncate -s 0 /var/lib/docker/containers/*/*/*.log
 
+docker login harbor.xx.com
+docker pull harbor.xx.com/proxy/bitnami/kafka:3.7.0
+
 ```
 

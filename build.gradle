@@ -77,7 +77,7 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-//    implementation 'com.mysql:mysql-connector-j'
+    implementation 'com.mysql:mysql-connector-j'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter'
     implementation 'com.baomidou:mybatis-plus-boot-starter'
     implementation 'com.github.yulichang:mybatis-plus-join-boot-starter'
