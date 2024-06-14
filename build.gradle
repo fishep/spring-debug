@@ -84,6 +84,8 @@ dependencies {
 
     implementation 'org.apache.flink:flink-clients'
     implementation 'org.apache.flink:flink-table-api-java'
+    implementation 'org.apache.flink:flink-table-runtime'
+    implementation 'org.apache.flink:flink-table-planner-loader'
     implementation 'org.apache.flink:flink-streaming-java'
     implementation 'org.apache.flink:flink-connector-files'
     implementation 'org.apache.flink:flink-connector-kafka:3.1.0-1.18'

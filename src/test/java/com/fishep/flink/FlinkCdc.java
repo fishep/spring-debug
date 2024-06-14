@@ -13,6 +13,7 @@ import org.apache.flink.connector.kafka.sink.KafkaSink;
 import org.apache.flink.streaming.api.CheckpointingMode;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 
 /**
@@ -73,5 +74,15 @@ public class FlinkCdc {
 
         env.execute("mysql-cdc-kafka");
     }
+
+//    kafka-topics.sh --create --topic mysql-cdc-kafka --bootstrap-server localhost:9092
+//    kafka-topics.sh --delete --topic mysql-cdc-kafka --bootstrap-server localhost:9092
+//    kafka-topics.sh --describe --topic mysql-cdc-kafka --bootstrap-server localhost:9092
+
+//    kafka-configs.sh --bootstrap-server localhost:9092 --describe --entity-type topics | grep session.timeout.ms
+//    kafka-configs.sh --bootstrap-server localhost:9092 --describe --entity-type topics | grep transaction.timeout.ms
+
+//    kafka-console-producer.sh --topic mysql-cdc-kafka --bootstrap-server localhost:9092
+//    kafka-console-consumer.sh --topic mysql-cdc-kafka --from-beginning --bootstrap-server localhost:9092
 
 }

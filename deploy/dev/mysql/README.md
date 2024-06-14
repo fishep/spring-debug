@@ -87,4 +87,8 @@ stop slave;
 CHANGE MASTER TO MASTER_AUTO_POSITION = 1;
 start slave;
 
+show variables like '%wait_timeout%';
+show variables like '%timeout%';
+
+
 ```
