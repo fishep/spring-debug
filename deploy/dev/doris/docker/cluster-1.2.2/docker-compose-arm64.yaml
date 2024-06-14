@@ -45,4 +45,4 @@ networks:
   doris_net:
     ipam:
       config:
-        - subnet: 172.20.80.0/16
+        - subnet: 172.20.80.0/24
