@@ -17,3 +17,30 @@ docker exec -it xxx bash
 ### 测试 dolphinscheduler
 ```shell
 ```
+
+```shell
+docker pull harbor.xx.com/proxy/bitnami/postgresql:16.0.0
+docker pull harbor.xx.com/proxy/bitnami/zookeeper:3.7
+docker pull harbor.xx.com/proxy/apache/dolphinscheduler-tools:3.1.9
+docker pull harbor.xx.com/proxy/apache/dolphinscheduler-api:3.1.9
+docker pull harbor.xx.com/proxy/apache/dolphinscheduler-alert-server:3.1.9
+docker pull harbor.xx.com/proxy/apache/dolphinscheduler-master:3.1.9
+docker pull harbor.xx.com/proxy/apache/dolphinscheduler-worker:3.1.9
+
+docker tag harbor.xx.com/proxy/bitnami/postgresql:16.0.0 bitnami/postgresql:16.0.0
+docker tag harbor.xx.com/proxy/bitnami/zookeeper:3.7 bitnami/zookeeper:3.7
+docker tag harbor.xx.com/proxy/apache/dolphinscheduler-tools:3.1.9 apache/dolphinscheduler-tools:3.1.9
+docker tag harbor.xx.com/proxy/apache/dolphinscheduler-api:3.1.9 apache/dolphinscheduler-api:3.1.9
+docker tag harbor.xx.com/proxy/apache/dolphinscheduler-alert-server:3.1.9 apache/dolphinscheduler-alert-server:3.1.9
+docker tag harbor.xx.com/proxy/apache/dolphinscheduler-master:3.1.9 apache/dolphinscheduler-master:3.1.9
+docker tag harbor.xx.com/proxy/apache/dolphinscheduler-worker:3.1.9 apache/dolphinscheduler-worker:3.1.9
+
+docker rmi harbor.xx.com/proxy/bitnami/postgresql:16.0.0
+docker rmi harbor.xx.com/proxy/bitnami/zookeeper:3.7
+docker rmi harbor.xx.com/proxy/apache/dolphinscheduler-tools:3.1.9
+docker rmi harbor.xx.com/proxy/apache/dolphinscheduler-api:3.1.9
+docker rmi harbor.xx.com/proxy/apache/dolphinscheduler-alert-server:3.1.9
+docker rmi harbor.xx.com/proxy/apache/dolphinscheduler-master:3.1.9
+docker rmi harbor.xx.com/proxy/apache/dolphinscheduler-worker:3.1.9
+
+```
