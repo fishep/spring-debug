@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  datax:
+    image: linshellfeng/datax_web:3.0.1
+    container_name: "datax"
+    ports:
+      - "9527:9527"
+    volumes:
+      - ./conf/bootstrap.properties:/home/datax/datax-web-2.1.2/modules/datax-admin/conf/bootstrap.properties
