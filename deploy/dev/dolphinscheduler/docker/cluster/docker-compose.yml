@@ -19,6 +19,7 @@ version: "3.8"
 services:
   dolphinscheduler-postgresql:
     image: bitnami/postgresql:16.0.0
+    container_name: "dolphinscheduler-postgresql"
     ports:
       - "5432:5432"
     profiles: ["all", "schema"]
@@ -38,6 +39,7 @@ services:
 
   dolphinscheduler-zookeeper:
     image: bitnami/zookeeper:3.7
+    container_name: "dolphinscheduler-zookeeper"
     profiles: ["all"]
     environment:
       ALLOW_ANONYMOUS_LOGIN: "yes"
@@ -54,6 +56,7 @@ services:
 
   dolphinscheduler-schema-initializer:
     image: ${HUB}/dolphinscheduler-tools:${TAG}
+    container_name: "dolphinscheduler-schema-initializer"
     env_file: .env
     profiles: ["schema"]
     command: [ tools/bin/upgrade-schema.sh ]
@@ -69,6 +72,7 @@ services:
 
   dolphinscheduler-api:
     image: ${HUB}/dolphinscheduler-api:${TAG}
+    container_name: "dolphinscheduler-api"
     ports:
       - "12345:12345"
       - "25333:25333"
@@ -91,6 +95,7 @@ services:
 
   dolphinscheduler-alert:
     image: ${HUB}/dolphinscheduler-alert-server:${TAG}
+    container_name: "dolphinscheduler-alert"
     profiles: ["all"]
     env_file: .env
     healthcheck:
@@ -105,6 +110,7 @@ services:
 
   dolphinscheduler-master:
     image: ${HUB}/dolphinscheduler-master:${TAG}
+    container_name: "dolphinscheduler-master"
     profiles: ["all"]
     env_file: .env
     healthcheck:
@@ -123,6 +129,7 @@ services:
 
   dolphinscheduler-worker:
     image: ${HUB}/dolphinscheduler-worker:${TAG}
+    container_name: "dolphinscheduler-worker"
     profiles: ["all"]
     env_file: .env
     healthcheck:

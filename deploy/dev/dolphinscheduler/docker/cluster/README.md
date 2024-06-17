@@ -8,9 +8,21 @@ docker-compose -p service --profile schema up -d
 # 启动dolphinscheduler所有服务，指定profile为all
 docker-compose -p service --profile all up -d
 
-docker exec -it xxx bash
+docker exec -it dolphinscheduler-postgresql bash
+docker exec -it dolphinscheduler-zookeeper bash
+docker exec -it dolphinscheduler-schema-initializer bash
+docker exec -it dolphinscheduler-api bash
+docker exec -it dolphinscheduler-alert bash
+docker exec -it dolphinscheduler-master bash
+docker exec -it dolphinscheduler-worker bash
 
 # http://localhost:12345/dolphinscheduler/ui -- u/p: [admin/dolphinscheduler123]
+
+docker exec -it dolphinscheduler-worker bash
+#useradd -r -s /usr/sbin/nologin fishep
+useradd -m -s /usr/bin/bash fishep
+passwd fishep
+userdel -r fishep
 
 ```
 
