@@ -37,4 +37,7 @@ delete from demo;
 drop table demo;
 
 drop database demo;
+
+# ALTER USER 'demo'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'demo';
+
 ```

@@ -10,8 +10,8 @@ source:
   tables: app_db.\.*
   server-id: 1
   server-time-zone: UTC
-#  useSSL: false
-#  allowPublicKeyRetrieval: true
+#  use-ssl: false
+#  allow-public-key-retrieval: true
 
 sink:
   type: doris

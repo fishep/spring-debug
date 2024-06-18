@@ -23,11 +23,11 @@ query:
 rest:
   bind-address: 0.0.0.0
   address: 0.0.0.0
-parallelism:
-  default: 1
 execution:
   checkpointing:
     interval: 3000
+parallelism:
+  default: 1
 env:
   java:
     opts:

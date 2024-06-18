@@ -19,6 +19,7 @@ CREATE USER 'app_db' IDENTIFIED BY 'app_db';
 GRANT ALL ON app_db.* TO app_db;
 GRANT REPLICATION SLAVE ON *.* TO 'app_db'@'%';
 GRANT REPLICATION CLIENT ON *.* TO 'app_db'@'%';
+ALTER USER 'app_db'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'app_db';
 FLUSH PRIVILEGES;
 
 -- create orders table
