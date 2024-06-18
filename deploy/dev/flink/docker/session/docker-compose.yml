@@ -9,20 +9,26 @@ services:
       - "8082:8082"
     command: jobmanager
     volumes:
+#      - ./conf/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml
       - ./conf/config.yaml:/opt/flink/conf/config.yaml
 #      - completed-jobs:/opt/flink/completed-jobs
     environment:
       - |
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager        
+    networks:
+      default:
+      doris_net:
 
   taskmanager:
+#    image: flink:1.18.0
     image: flink:1.19.0
     container_name: "taskmanager"
     depends_on:
       - jobmanager
     command: taskmanager
     volumes:
+#      - ./conf/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml
       - ./conf/config.yaml:/opt/flink/conf/config.yaml
 #      - completed-jobs:/opt/flink/completed-jobs
     scale: 1
@@ -31,6 +37,16 @@ services:
         FLINK_PROPERTIES=
         jobmanager.rpc.address: jobmanager
         taskmanager.numberOfTaskSlots: 2
+    networks:
+      default:
+      doris_net:
 
 #volumes:
 #  completed-jobs:
+
+networks:
+  default:
+  doris_net:
+    ipam:
+      config:
+        - subnet: 172.20.80.0/24

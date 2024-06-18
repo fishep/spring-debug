@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  doris:
+    image: yagagagaga/doris-standalone:2.1.3
+    container_name: "doris"
+    ports:
+      - "8030:8030"
+      - "8040:8040"
+      - "9030:9030"

@@ -29,3 +29,25 @@ apt-get install python3
 ln -s /usr/bin/python3 /usr/bin/python
 
 ```
+
+### 部署 DataX
+```shell
+#下载地址 https://datax-opensource.oss-cn-hangzhou.aliyuncs.com/202308/datax.tar.gz
+docker cp datax.tar.gz debian:/opt
+
+docker exec -it debian bash
+cd /opt
+tar -zxvf datax.tar.gz
+rm datax.tar.gz
+
+cd /opt/datax
+python datax.py {YOUR_JOB.json}
+python bin/datax.py job/job.json
+
+cd /opt/datax/bin
+chmod a+x datax.py dxprof.py perftrace.py
+
+export DATAX_HOME=/opt/datax
+export PATH=$PATH:$DATAX_HOME/bin
+datax.py job/job.json
+```

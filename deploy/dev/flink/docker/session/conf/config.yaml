@@ -25,6 +25,9 @@ rest:
   address: 0.0.0.0
 parallelism:
   default: 1
+execution:
+  checkpointing:
+    interval: 3000
 env:
   java:
     opts:

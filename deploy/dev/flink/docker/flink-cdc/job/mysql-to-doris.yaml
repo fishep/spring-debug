@@ -1,0 +1,27 @@
+################################################################################
+# Description: Sync MySQL all tables to Doris
+################################################################################
+source:
+  type: mysql
+  hostname: mysql
+  port: 3306
+  username: app_db
+  password: app_db
+  tables: app_db.\.*
+  server-id: 1
+  server-time-zone: UTC
+#  useSSL: false
+#  allowPublicKeyRetrieval: true
+
+sink:
+  type: doris
+  fenodes: doris-fe:8030
+  username: root
+  password: ""
+  table.create.properties.light_schema_change: true
+  table.create.properties.replication_num: 1
+
+pipeline:
+  name: Sync MySQL Database to Doris
+#  parallelism: 2
+  parallelism: 1

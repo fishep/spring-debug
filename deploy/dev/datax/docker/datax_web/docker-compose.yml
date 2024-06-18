@@ -1,9 +1,9 @@
 version: "3.8"
 
 services:
-  datax:
+  datax_web:
     image: linshellfeng/datax_web:3.0.1
-    container_name: "datax"
+    container_name: "datax_web"
     ports:
       - "9527:9527"
     volumes:

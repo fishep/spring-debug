@@ -1,0 +1,8 @@
+version: "3.8"
+
+services:
+  debian:
+    image: debian:latest
+    container_name: debian
+    privileged: true
+    command: [ "sh", "-c", "while true; do sleep 10; done;" ]
