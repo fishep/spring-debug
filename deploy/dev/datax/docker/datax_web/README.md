@@ -2,8 +2,11 @@
 
 ### datax_web
 ```shell
-# 需要启动mysql，并初始化数据库, mysql8 不行，datax-admin 使用的mysql 5.1.47
-docker cp ./bin/db/datax_web.sql mysql:/docker-entrypoint-initdb.d/
+# 需要启动mysql，并初始化数据库, 
+# mysql5服务不需要做什么
+# mysql8服务需要在 datax_web.sql，添加 ALTER USER 'datax_web'@'%' IDENTIFIED WITH 'mysql_native_password' BY 'datax_web';
+
+docker cp ./db/datax_web.sql mysql:/docker-entrypoint-initdb.d/
 docker exec -it mysql bash
 mysql -uroot -proot  < /docker-entrypoint-initdb.d/datax_web.sql
 
