@@ -63,10 +63,10 @@ services:
     depends_on:
       dolphinscheduler-postgresql:
         condition: service_healthy
-#    volumes:
-#      - dolphinscheduler-logs:/opt/dolphinscheduler/logs
-#      - dolphinscheduler-shared-local:/opt/soft
-#      - dolphinscheduler-resource-local:/dolphinscheduler
+    volumes:
+      - dolphinscheduler-logs:/opt/dolphinscheduler/logs
+      - dolphinscheduler-shared-local:/opt/soft
+      - dolphinscheduler-resource-local:/dolphinscheduler
 #    networks:
 #      - dolphinscheduler
 
@@ -86,10 +86,13 @@ services:
     depends_on:
       dolphinscheduler-zookeeper:
         condition: service_healthy
-#    volumes:
-#      - dolphinscheduler-logs:/opt/dolphinscheduler/logs
-#      - dolphinscheduler-shared-local:/opt/soft
-#      - dolphinscheduler-resource-local:/dolphinscheduler
+    volumes:
+      - dolphinscheduler-logs:/opt/dolphinscheduler/logs
+      - dolphinscheduler-shared-local:/opt/soft
+      - dolphinscheduler-resource-local:/dolphinscheduler
+    networks:
+      default:
+      doris_net:
 #    networks:
 #      - dolphinscheduler
 
@@ -103,8 +106,11 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-#    volumes:
-#      - dolphinscheduler-logs:/opt/dolphinscheduler/logs
+    volumes:
+      - dolphinscheduler-logs:/opt/dolphinscheduler/logs
+    networks:
+      default:
+      doris_net:
 #    networks:
 #      - dolphinscheduler
 
@@ -121,9 +127,12 @@ services:
     depends_on:
       dolphinscheduler-zookeeper:
         condition: service_healthy
-#    volumes:
-#      - dolphinscheduler-logs:/opt/dolphinscheduler/logs
-#      - dolphinscheduler-shared-local:/opt/soft
+    volumes:
+      - dolphinscheduler-logs:/opt/dolphinscheduler/logs
+      - dolphinscheduler-shared-local:/opt/soft
+    networks:
+      default:
+      doris_net:
 #    networks:
 #      - dolphinscheduler
 
@@ -140,11 +149,14 @@ services:
     depends_on:
       dolphinscheduler-zookeeper:
         condition: service_healthy
-#    volumes:
-#      - dolphinscheduler-worker-data:/tmp/dolphinscheduler
-#      - dolphinscheduler-logs:/opt/dolphinscheduler/logs
-#      - dolphinscheduler-shared-local:/opt/soft
-#      - dolphinscheduler-resource-local:/dolphinscheduler
+    volumes:
+      - dolphinscheduler-worker-data:/tmp/dolphinscheduler
+      - dolphinscheduler-logs:/opt/dolphinscheduler/logs
+      - dolphinscheduler-shared-local:/opt/soft
+      - dolphinscheduler-resource-local:/dolphinscheduler
+    networks:
+      default:
+      doris_net:
 #    networks:
 #      - dolphinscheduler
 
@@ -152,10 +164,17 @@ services:
 #  dolphinscheduler:
 #    driver: bridge
 
-#volumes:
+volumes:
 #  dolphinscheduler-postgresql:
 #  dolphinscheduler-zookeeper:
-#  dolphinscheduler-worker-data:
-#  dolphinscheduler-logs:
-#  dolphinscheduler-shared-local:
-#  dolphinscheduler-resource-local:
+  dolphinscheduler-worker-data:
+  dolphinscheduler-logs:
+  dolphinscheduler-shared-local:
+  dolphinscheduler-resource-local:
+
+networks:
+  default:
+  doris_net:
+    ipam:
+      config:
+        - subnet: 172.20.80.0/24
