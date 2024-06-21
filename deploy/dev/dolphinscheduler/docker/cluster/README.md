@@ -30,6 +30,22 @@ userdel -r fishep
 ```shell
 ```
 
+### mysql 数据源支持
+```shell
+#docker cp dolphinscheduler-api:/opt/dolphinscheduler/conf/common.properties ./
+
+docker exec -it dolphinscheduler-api bash
+docker exec -it dolphinscheduler-alert bash
+docker exec -it dolphinscheduler-master bash
+docker exec -it dolphinscheduler-worker bash
+
+docker cp mysql-connector-java-5.1.49.jar dolphinscheduler-api:/opt/dolphinscheduler/libs
+docker cp mysql-connector-java-5.1.49.jar dolphinscheduler-alert:/opt/dolphinscheduler/libs
+docker cp mysql-connector-java-5.1.49.jar dolphinscheduler-master:/opt/dolphinscheduler/libs
+docker cp mysql-connector-java-5.1.49.jar dolphinscheduler-worker:/opt/dolphinscheduler/libs
+```
+
+### 镜像拉取
 ```shell
 docker pull harbor.xx.com/proxy/bitnami/postgresql:16.0.0
 docker pull harbor.xx.com/proxy/bitnami/zookeeper:3.7
