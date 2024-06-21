@@ -34,6 +34,9 @@ services:
       interval: 5s
       timeout: 60s
       retries: 120
+    networks:
+      default:
+      doris_net:
 #    networks:
 #      - dolphinscheduler
 
@@ -51,6 +54,9 @@ services:
       interval: 5s
       timeout: 60s
       retries: 120
+    networks:
+      default:
+      doris_net:
 #    networks:
 #      - dolphinscheduler
 
@@ -67,6 +73,9 @@ services:
       - dolphinscheduler-logs:/opt/dolphinscheduler/logs
       - dolphinscheduler-shared-local:/opt/soft
       - dolphinscheduler-resource-local:/dolphinscheduler
+    networks:
+      default:
+      doris_net:
 #    networks:
 #      - dolphinscheduler
 

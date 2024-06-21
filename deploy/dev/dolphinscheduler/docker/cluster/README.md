@@ -34,15 +34,15 @@ userdel -r fishep
 ```shell
 #docker cp dolphinscheduler-api:/opt/dolphinscheduler/conf/common.properties ./
 
-docker exec -it dolphinscheduler-api bash
-docker exec -it dolphinscheduler-alert bash
-docker exec -it dolphinscheduler-master bash
-docker exec -it dolphinscheduler-worker bash
+docker cp mysql-connector-j-8.0.32.jar dolphinscheduler-api:/opt/dolphinscheduler/libs
+docker cp mysql-connector-j-8.0.32.jar dolphinscheduler-alert:/opt/dolphinscheduler/libs
+docker cp mysql-connector-j-8.0.32.jar dolphinscheduler-master:/opt/dolphinscheduler/libs
+docker cp mysql-connector-j-8.0.32.jar dolphinscheduler-worker:/opt/dolphinscheduler/libs
 
-docker cp mysql-connector-java-5.1.49.jar dolphinscheduler-api:/opt/dolphinscheduler/libs
-docker cp mysql-connector-java-5.1.49.jar dolphinscheduler-alert:/opt/dolphinscheduler/libs
-docker cp mysql-connector-java-5.1.49.jar dolphinscheduler-master:/opt/dolphinscheduler/libs
-docker cp mysql-connector-java-5.1.49.jar dolphinscheduler-worker:/opt/dolphinscheduler/libs
+#重启
+docker compose -p service stop
+docker-compose -p service --profile all up -d
+
 ```
 
 ### 镜像拉取

@@ -18,4 +18,6 @@ rmdir home
 $Env:HADOOP_HOME = "/opt/hadoop"
 $Env:HADOOP_HOME
 
+(Get-Content file.txt) -replace "`r`n", "`n" | Set-Content file_lf.txt
+
 ```
