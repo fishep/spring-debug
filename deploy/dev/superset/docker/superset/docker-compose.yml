@@ -8,13 +8,3 @@ services:
       - "8088:8088"
     environment:
       SUPERSET_SECRET_KEY: your_secret_key_here
-    networks:
-      default:
-      doris_net:
-
-networks:
-  default:
-  doris_net:
-    ipam:
-      config:
-        - subnet: 172.20.80.0/24

@@ -34,9 +34,6 @@ services:
       interval: 5s
       timeout: 60s
       retries: 120
-    networks:
-      default:
-      doris_net:
 #    networks:
 #      - dolphinscheduler
 
@@ -54,9 +51,6 @@ services:
       interval: 5s
       timeout: 60s
       retries: 120
-    networks:
-      default:
-      doris_net:
 #    networks:
 #      - dolphinscheduler
 
@@ -73,9 +67,6 @@ services:
       - dolphinscheduler-logs:/opt/dolphinscheduler/logs
       - dolphinscheduler-shared-local:/opt/soft
       - dolphinscheduler-resource-local:/dolphinscheduler
-    networks:
-      default:
-      doris_net:
 #    networks:
 #      - dolphinscheduler
 
@@ -99,9 +90,6 @@ services:
       - dolphinscheduler-logs:/opt/dolphinscheduler/logs
       - dolphinscheduler-shared-local:/opt/soft
       - dolphinscheduler-resource-local:/dolphinscheduler
-    networks:
-      default:
-      doris_net:
 #    networks:
 #      - dolphinscheduler
 
@@ -117,9 +105,6 @@ services:
       retries: 3
     volumes:
       - dolphinscheduler-logs:/opt/dolphinscheduler/logs
-    networks:
-      default:
-      doris_net:
 #    networks:
 #      - dolphinscheduler
 
@@ -139,9 +124,6 @@ services:
     volumes:
       - dolphinscheduler-logs:/opt/dolphinscheduler/logs
       - dolphinscheduler-shared-local:/opt/soft
-    networks:
-      default:
-      doris_net:
 #    networks:
 #      - dolphinscheduler
 
@@ -163,9 +145,6 @@ services:
       - dolphinscheduler-logs:/opt/dolphinscheduler/logs
       - dolphinscheduler-shared-local:/opt/soft
       - dolphinscheduler-resource-local:/dolphinscheduler
-    networks:
-      default:
-      doris_net:
 #    networks:
 #      - dolphinscheduler
 
@@ -180,10 +159,3 @@ volumes:
   dolphinscheduler-logs:
   dolphinscheduler-shared-local:
   dolphinscheduler-resource-local:
-
-networks:
-  default:
-  doris_net:
-    ipam:
-      config:
-        - subnet: 172.20.80.0/24

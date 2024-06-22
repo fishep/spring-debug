@@ -8,13 +8,13 @@ services:
       - '1024:1024'
       - '1025:1025'
     command: [ "sh", "-c", "while true; do sleep 10; done;" ]
-    networks:
-      default:
-      doris_net:
-
-networks:
-  default:
-  doris_net:
-    ipam:
-      config:
-        - subnet: 172.20.80.0/24
+#    networks:
+#      default:
+#      doris_net:
+#
+#networks:
+#  default:
+#  doris_net:
+#    ipam:
+#      config:
+#        - subnet: 172.20.80.0/24

@@ -61,7 +61,6 @@ USER superset
 ### 测试 superset 连接 doris 
 ```shell
 
-# 将 ./docker-compose.yml 文件中的 doris_net 注释去掉，确保superset 和 doris 在一个网段
 vim docker-compose.yml
 
 # 启动superset，安装pydoris，重启superset
