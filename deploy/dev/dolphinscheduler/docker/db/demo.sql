@@ -6,11 +6,11 @@ USE `demo`;
 -- create orders table
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
-  `id` INT NOT NULL,
-  `price` DECIMAL(10,2) NOT NULL,
-  `last_update_at` DATETIMEV2 NOT NULL COMMENT '数据最后更新时间'
+                          `id` INT NOT NULL,
+                          `price` DECIMAL(10,2) NOT NULL,
+                          `last_update_at` DATETIMEV2 NOT NULL COMMENT '数据最后更新时间'
 )
-UNIQUE KEY(`id`)
+    UNIQUE KEY(`id`)
 DISTRIBUTED BY HASH(`id`) BUCKETS AUTO
 PROPERTIES (
 "replication_allocation" = "tag.location.default: 1"
@@ -19,12 +19,12 @@ PROPERTIES (
 -- create shipments table
 DROP TABLE IF EXISTS `shipments`;
 CREATE TABLE `shipments` (
-  `id` INT NOT NULL,
-	`order_id` INT NOT NULL,
-  `city` VARCHAR(255) NOT NULL,
-  `last_update_at` DATETIMEV2 NOT NULL COMMENT '数据最后更新时间'
+                             `id` INT NOT NULL,
+                             `order_id` INT NOT NULL,
+                             `city` VARCHAR(255) NOT NULL,
+                             `last_update_at` DATETIMEV2 NOT NULL COMMENT '数据最后更新时间'
 )
-UNIQUE KEY(`id`)
+    UNIQUE KEY(`id`)
 DISTRIBUTED BY HASH(`id`) BUCKETS AUTO
 PROPERTIES (
 "replication_allocation" = "tag.location.default: 1"
@@ -33,31 +33,30 @@ PROPERTIES (
 -- create products table
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
-  `id` INT NOT NULL,
-	`order_id` INT NOT NULL,
-	`product_id` INT NOT NULL,
-  `product_name` VARCHAR(255) NOT NULL,
-	`cate_id` INT NOT NULL COMMENT '产品分类的id',
-	`cate_name` VARCHAR(255) NOT NULL COMMENT '产品分类的名称',
-  `last_update_at` DATETIMEV2 NOT NULL COMMENT '数据最后更新时间'
+                            `id` INT NOT NULL,
+                            `order_id` INT NOT NULL,
+                            `product_id` INT NOT NULL,
+                            `product_name` VARCHAR(255) NOT NULL,
+                            `cate_id` INT NOT NULL COMMENT '产品分类的id',
+                            `cate_name` VARCHAR(255) NOT NULL COMMENT '产品分类的名称',
+                            `last_update_at` DATETIMEV2 NOT NULL COMMENT '数据最后更新时间'
 )
-UNIQUE KEY(`id`)
+    UNIQUE KEY(`id`)
 DISTRIBUTED BY HASH(`id`) BUCKETS AUTO
 PROPERTIES (
 "replication_allocation" = "tag.location.default: 1"
 );
 
-
 DROP TABLE IF EXISTS `table_row_change_log`;
 CREATE TABLE `table_row_change_log`  (
-  `dt` DATEV2 NULL,
-  `table_name` VARCHAR(100) NULL DEFAULT NULL,
-  `pk_1` VARCHAR(100) NULL DEFAULT NULL,
-  `pk_2` VARCHAR(100) NULL DEFAULT NULL,
-  `pk_3` VARCHAR(100) NULL DEFAULT NULL,
-  `op` CHAR(1) NULL DEFAULT NULL COMMENT 'c,r,u,d'
-) 
-DUPLICATE KEY(`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`)
+                                         `dt` DATEV2 NULL,
+                                         `table_name` VARCHAR(100) NULL DEFAULT NULL,
+                                         `pk_1` VARCHAR(100) NULL DEFAULT NULL,
+                                         `pk_2` VARCHAR(100) NULL DEFAULT NULL,
+                                         `pk_3` VARCHAR(100) NULL DEFAULT NULL,
+                                         `op` CHAR(1) NULL DEFAULT NULL COMMENT 'c,r,u,d -- 创建，快照，更新，删除'
+)
+    DUPLICATE KEY(`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`)
 DISTRIBUTED BY HASH(`dt`) BUCKETS AUTO
 PROPERTIES (
 "replication_allocation" = "tag.location.default: 1"
@@ -65,46 +64,83 @@ PROPERTIES (
 
 -- SELECT * FROM `orders`
 
+-- 2024-05-31
+-- 新增数据可能的情况
+-- c        1
+-- c u      2
+-- c u d    3
+-- 存量数据可能的情况
+-- u
+-- u d
+INSERT INTO `orders` (`id`, `price`, `last_update_at`) VALUES (1, 10.00, '2024-05-31 00:00:00');
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-05-31', 'orders', 1, NULL, NULL, 'c');
+INSERT INTO `orders` (`id`, `price`, `last_update_at`) VALUES (2, 20.00, '2024-05-31 00:00:00');
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-05-31', 'orders', 2, NULL, NULL, 'c');
+UPDATE `orders` SET `price` = 21.00, `last_update_at`='2024-05-31 12:00:00' WHERE id = 2;
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-05-31', 'orders', 2, NULL, NULL, 'u');
+INSERT INTO `orders` (`id`, `price`, `last_update_at`) VALUES (3, 30.00, '2024-05-31 00:00:00');
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-05-31', 'orders', 3, NULL, NULL, 'c');
+UPDATE `orders` SET `price` = 31.00, `last_update_at`='2024-05-31 12:00:00' WHERE id = 3;
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-05-31', 'orders', 3, NULL, NULL, 'u');
+DELETE FROM `orders` WHERE `id` = 3;
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-05-31', 'orders', 3, NULL, NULL, 'd');
+
+
 -- 2024-06-01
-INSERT INTO `orders` (`id`, `price`, `last_update_at`) VALUES (1, 10.00, '2024-06-01 00:00:00');
-INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-01', 'orders', 1, NULL, NULL, 'c');
+-- 新增数据可能的情况
+-- c        4
+-- c u      5
+-- c u d    6
+-- 存量数据可能的情况
+-- u        1
+-- u d      2
+INSERT INTO `orders` (`id`, `price`, `last_update_at`) VALUES (4, 40.00, '2024-06-01 00:00:00');
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-01', 'orders', 4, NULL, NULL, 'c');
+INSERT INTO `orders` (`id`, `price`, `last_update_at`) VALUES (5, 50.00, '2024-06-01 00:00:00');
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-01', 'orders', 5, NULL, NULL, 'c');
+UPDATE `orders` SET `price` = 51.00, `last_update_at`='2024-06-01 12:00:00' WHERE id = 5;
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-01', 'orders', 5, NULL, NULL, 'u');
+INSERT INTO `orders` (`id`, `price`, `last_update_at`) VALUES (6, 60.00, '2024-06-01 00:00:00');
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-01', 'orders', 6, NULL, NULL, 'c');
+UPDATE `orders` SET `price` = 61.00, `last_update_at`='2024-06-01 12:00:00' WHERE id = 6;
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-01', 'orders', 6, NULL, NULL, 'u');
+DELETE FROM `orders` WHERE `id` = 6;
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-01', 'orders', 6, NULL, NULL, 'd');
+
 UPDATE `orders` SET `price` = 11.00, `last_update_at`='2024-06-01 12:00:00' WHERE id = 1;
 INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-01', 'orders', 1, NULL, NULL, 'u');
-UPDATE `orders` SET `price` = 12.00, `last_update_at`='2024-06-01 23:59:59' WHERE id = 1;
-INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-01', 'orders', 1, NULL, NULL, 'u');
-
-INSERT INTO `orders` (`id`, `price`, `last_update_at`) VALUES (2, 20.00, '2024-06-01 00:00:00');
-INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-01', 'orders', 2, NULL, NULL, 'c');
-UPDATE `orders` SET `price` = 21.00, `last_update_at`='2024-06-01 12:00:00' WHERE id = 2;
-INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-01', 'orders', 2, NULL, NULL, 'u');
 UPDATE `orders` SET `price` = 22.00, `last_update_at`='2024-06-01 23:59:59' WHERE id = 2;
 INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-01', 'orders', 2, NULL, NULL, 'u');
+DELETE FROM `orders` WHERE `id` = 2;
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-01', 'orders', 2, NULL, NULL, 'd');
 
 -- 2024-06-02
-UPDATE `orders` SET `price` = 13.00, `last_update_at`='2024-06-02 12:00:00' WHERE id = 1;
-INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 1, NULL, NULL, 'u');
-UPDATE `orders` SET `price` = 14.00, `last_update_at`='2024-06-02 23:59:59' WHERE id = 1;
-INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 1, NULL, NULL, 'u');
--- DELETE FROM `orders` WHERE `id` = 1;
--- INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 1, NULL, NULL, 'd');
+-- 新增数据可能的情况
+-- c        7
+-- c u      8
+-- c u d    9
+-- 存量数据可能的情况
+-- u        4
+-- u d      5
+INSERT INTO `orders` (`id`, `price`, `last_update_at`) VALUES (7, 70.00, '2024-06-02 00:00:00');
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 7, NULL, NULL, 'c');
+INSERT INTO `orders` (`id`, `price`, `last_update_at`) VALUES (8, 80.00, '2024-06-02 00:00:00');
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 8, NULL, NULL, 'c');
+UPDATE `orders` SET `price` = 81.00, `last_update_at`='2024-06-02 12:00:00' WHERE id = 8;
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 8, NULL, NULL, 'u');
+INSERT INTO `orders` (`id`, `price`, `last_update_at`) VALUES (9, 90.00, '2024-06-02 00:00:00');
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 9, NULL, NULL, 'c');
+UPDATE `orders` SET `price` = 91.00, `last_update_at`='2024-06-02 12:00:00' WHERE id = 9;
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 9, NULL, NULL, 'u');
+DELETE FROM `orders` WHERE `id` = 9;
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 9, NULL, NULL, 'd');
 
-UPDATE `orders` SET `price` = 23.00, `last_update_at`='2024-06-02 12:00:00' WHERE id = 2;
-INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 2, NULL, NULL, 'u');
-UPDATE `orders` SET `price` = 24.00, `last_update_at`='2024-06-02 23:59:59' WHERE id = 2;
-INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 2, NULL, NULL, 'u');
-DELETE FROM `orders` WHERE `id` = 2;
-INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 2, NULL, NULL, 'd');
-
-INSERT INTO `orders` (`id`, `price`, `last_update_at`) VALUES (3, 30.00, '2024-06-02 00:00:00');
-INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 3, NULL, NULL, 'c');
-UPDATE `orders` SET `price` = 34.00, `last_update_at`='2024-06-02 23:59:59' WHERE id = 3;
-INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 3, NULL, NULL, 'u');
-
-INSERT INTO `orders` (`id`, `price`, `last_update_at`) VALUES (4, 40.00, '2024-06-02 00:00:00');
-INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 4, NULL, NULL, 'c');
-DELETE FROM `orders` WHERE `id` = 4;
-INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 4, NULL, NULL, 'd');
-
+UPDATE `orders` SET `price` = 41.00, `last_update_at`='2024-06-02 12:00:00' WHERE id = 4;
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 4, NULL, NULL, 'u');
+UPDATE `orders` SET `price` = 52.00, `last_update_at`='2024-06-02 23:59:59' WHERE id = 5;
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 5, NULL, NULL, 'u');
+DELETE FROM `orders` WHERE `id` = 5;
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 5, NULL, NULL, 'd');
 
 
 
@@ -146,11 +182,6 @@ INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, 
 INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-01', 'products', 4, NULL, NULL, 'c');
 INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'products', 5, NULL, NULL, 'c');
 INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-03', 'products', 6, NULL, NULL, 'c');
-
-
-
-
-
 
 
 
