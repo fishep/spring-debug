@@ -8,10 +8,10 @@ USE `cdm_demo`;
 DROP TABLE IF EXISTS dim_city;
 CREATE TABLE dim_city(
 -- 	`id` INT NOT NULL COMMENT 'id',
-    `city` VARCHAR(255) NOT NULL
+  `city` VARCHAR(255) NOT NULL
 )
 -- UNIQUE KEY(`id`)
-    UNIQUE KEY(`city`)
+UNIQUE KEY(`city`)
 COMMENT 'city 纬度'
 DISTRIBUTED BY HASH(`city`) BUCKETS AUTO
 PROPERTIES (
@@ -48,10 +48,10 @@ INSERT INTO dim_city(`city`) SELECT city FROM demo.`shipments`;
 
 DROP TABLE IF EXISTS `dim_cate`;
 CREATE TABLE `dim_cate` (
-                            `cate_id` INT NOT NULL COMMENT '产品分类的id',
-                            `cate_name` VARCHAR(255) NOT NULL COMMENT '产品分类的名称'
+	`cate_id` INT NOT NULL COMMENT '产品分类的id',
+	`cate_name` VARCHAR(255) NOT NULL COMMENT '产品分类的名称'
 )
-    UNIQUE KEY(`cate_id`)
+UNIQUE KEY(`cate_id`)
 DISTRIBUTED BY HASH(`cate_id`) BUCKETS AUTO
 PROPERTIES (
 "replication_allocation" = "tag.location.default: 1"
@@ -75,24 +75,24 @@ INSERT INTO dim_cate(`cate_id`,`cate_name`) SELECT `cate_id`,`cate_name` FROM de
 
 
 -- DWD层（Data Warehouse Detail Layer）
--- 大宽表
+-- 大宽表 
 DROP TABLE IF EXISTS `dwd_order_product`;
 CREATE TABLE `dwd_order_product` (
-                                     `order_id` INT NOT NULL,
-                                     `product_id` INT NULL,
+  `order_id` INT NOT NULL,
+	`product_id` INT NULL,
+	
+  `price` DECIMAL(10,2) NULL,
+  
+	`city` VARCHAR(255) NULL,
 
-                                     `price` DECIMAL(10,2) NULL,
-
-                                     `city` VARCHAR(255) NULL,
-
-                                     `product_name` VARCHAR(255) NULL,
-                                     `cate_id` INT NULL COMMENT '产品分类的id',
-                                     `cate_name` VARCHAR(255) NULL COMMENT '产品分类的名称',
-
-                                     `order_last_update_at` DATETIMEV2 NULL COMMENT '订单最后更新时间',
-                                     `product_last_update_at` DATETIMEV2 NULL COMMENT '产品最后更新时间'
+  `product_name` VARCHAR(255) NULL,
+	`cate_id` INT NULL COMMENT '产品分类的id',
+	`cate_name` VARCHAR(255) NULL COMMENT '产品分类的名称',
+	
+	`order_last_update_at` DATETIMEV2 NULL COMMENT '订单最后更新时间',
+  `product_last_update_at` DATETIMEV2 NULL COMMENT '产品最后更新时间'
 )
-    UNIQUE KEY(`order_id`,`product_id`)
+UNIQUE KEY(`order_id`,`product_id`)
 DISTRIBUTED BY HASH(`order_id`) BUCKETS AUTO
 PROPERTIES (
 "replication_allocation" = "tag.location.default: 1"
@@ -104,9 +104,9 @@ PROPERTIES (
 INSERT INTO `dwd_order_product`(`order_id`, `product_id`, `price`, `city`, `product_name`, `cate_id`, `cate_name`, `order_last_update_at`, `product_last_update_at`)
 SELECT o.id as `order_id`, p.`product_id`, o.`price`, s.`city`, p.`product_name`,p.`cate_id`,p.`cate_name`,o.`last_update_at` as order_last_update_at, p.`last_update_at` as product_last_update_at
 FROM
-    `demo`.`orders` o
-        LEFT JOIN `demo`.`shipments` s ON (o.id = s.order_id)
-        LEFT JOIN `demo`.`products` p ON (o.id = s.order_id)
+`demo`.`orders` o
+LEFT JOIN `demo`.`shipments` s ON (o.id = s.order_id)
+LEFT JOIN `demo`.`products` p ON (o.id = s.order_id)
 
 -- 增量聚合，先删除变更数据，在插入变更数据
 

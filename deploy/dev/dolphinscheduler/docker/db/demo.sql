@@ -6,11 +6,11 @@ USE `demo`;
 -- create orders table
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
-                          `id` INT NOT NULL,
-                          `price` DECIMAL(10,2) NOT NULL,
-                          `last_update_at` DATETIMEV2 NOT NULL COMMENT '数据最后更新时间'
+  `id` INT NOT NULL,
+  `price` DECIMAL(10,2) NOT NULL,
+  `last_update_at` DATETIMEV2 NOT NULL COMMENT '数据最后更新时间'
 )
-    UNIQUE KEY(`id`)
+UNIQUE KEY(`id`)
 DISTRIBUTED BY HASH(`id`) BUCKETS AUTO
 PROPERTIES (
 "replication_allocation" = "tag.location.default: 1"
@@ -19,12 +19,12 @@ PROPERTIES (
 -- create shipments table
 DROP TABLE IF EXISTS `shipments`;
 CREATE TABLE `shipments` (
-                             `id` INT NOT NULL,
-                             `order_id` INT NOT NULL,
-                             `city` VARCHAR(255) NOT NULL,
-                             `last_update_at` DATETIMEV2 NOT NULL COMMENT '数据最后更新时间'
+  `id` INT NOT NULL,
+	`order_id` INT NOT NULL,
+  `city` VARCHAR(255) NOT NULL,
+  `last_update_at` DATETIMEV2 NOT NULL COMMENT '数据最后更新时间'
 )
-    UNIQUE KEY(`id`)
+UNIQUE KEY(`id`)
 DISTRIBUTED BY HASH(`id`) BUCKETS AUTO
 PROPERTIES (
 "replication_allocation" = "tag.location.default: 1"
@@ -33,15 +33,15 @@ PROPERTIES (
 -- create products table
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
-                            `id` INT NOT NULL,
-                            `order_id` INT NOT NULL,
-                            `product_id` INT NOT NULL,
-                            `product_name` VARCHAR(255) NOT NULL,
-                            `cate_id` INT NOT NULL COMMENT '产品分类的id',
-                            `cate_name` VARCHAR(255) NOT NULL COMMENT '产品分类的名称',
-                            `last_update_at` DATETIMEV2 NOT NULL COMMENT '数据最后更新时间'
+  `id` INT NOT NULL,
+	`order_id` INT NOT NULL,
+	`product_id` INT NOT NULL,
+  `product_name` VARCHAR(255) NOT NULL,
+	`cate_id` INT NOT NULL COMMENT '产品分类的id',
+	`cate_name` VARCHAR(255) NOT NULL COMMENT '产品分类的名称',
+  `last_update_at` DATETIMEV2 NOT NULL COMMENT '数据最后更新时间'
 )
-    UNIQUE KEY(`id`)
+UNIQUE KEY(`id`)
 DISTRIBUTED BY HASH(`id`) BUCKETS AUTO
 PROPERTIES (
 "replication_allocation" = "tag.location.default: 1"
@@ -49,14 +49,14 @@ PROPERTIES (
 
 DROP TABLE IF EXISTS `table_row_change_log`;
 CREATE TABLE `table_row_change_log`  (
-                                         `dt` DATEV2 NULL,
-                                         `table_name` VARCHAR(100) NULL DEFAULT NULL,
-                                         `pk_1` VARCHAR(100) NULL DEFAULT NULL,
-                                         `pk_2` VARCHAR(100) NULL DEFAULT NULL,
-                                         `pk_3` VARCHAR(100) NULL DEFAULT NULL,
-                                         `op` CHAR(1) NULL DEFAULT NULL COMMENT 'c,r,u,d -- 创建，快照，更新，删除'
-)
-    DUPLICATE KEY(`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`)
+  `dt` DATEV2 NULL,
+  `table_name` VARCHAR(100) NULL DEFAULT NULL,
+  `pk_1` VARCHAR(100) NULL DEFAULT NULL,
+  `pk_2` VARCHAR(100) NULL DEFAULT NULL,
+  `pk_3` VARCHAR(100) NULL DEFAULT NULL,
+  `op` CHAR(1) NULL DEFAULT NULL COMMENT 'c,r,u,d -- 创建，快照，更新，删除'
+) 
+DUPLICATE KEY(`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`)
 DISTRIBUTED BY HASH(`dt`) BUCKETS AUTO
 PROPERTIES (
 "replication_allocation" = "tag.location.default: 1"
@@ -70,7 +70,7 @@ PROPERTIES (
 -- c u      2
 -- c u d    3
 -- 存量数据可能的情况
--- u
+-- u  
 -- u d
 INSERT INTO `orders` (`id`, `price`, `last_update_at`) VALUES (1, 10.00, '2024-05-31 00:00:00');
 INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-05-31', 'orders', 1, NULL, NULL, 'c');
@@ -182,6 +182,11 @@ INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, 
 INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-01', 'products', 4, NULL, NULL, 'c');
 INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'products', 5, NULL, NULL, 'c');
 INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-03', 'products', 6, NULL, NULL, 'c');
+
+
+
+
+
 
 
 
