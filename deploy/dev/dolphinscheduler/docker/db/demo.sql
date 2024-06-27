@@ -142,7 +142,8 @@ INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, 
 DELETE FROM `orders` WHERE `id` = 5;
 INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 5, NULL, NULL, 'd');
 
-
+UPDATE `orders` SET `price` = 12.00, `last_update_at`='2024-06-02 23:59:59' WHERE id = 1;
+INSERT INTO `table_row_change_log` (`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`) VALUES ('2024-06-02', 'orders', 1, NULL, NULL, 'u');
 
 -- SELECT * FROM `shipments`
 -- 2024-06-01
