@@ -3,11 +3,11 @@
 ################################################################################
 source:
   type: mysql
-  hostname: mysql
+  hostname: mysql.dev
   port: 3306
-  username: app_db
-  password: app_db
-  tables: app_db.\.*
+  username: demo
+  password: demo
+  tables: demo.\.*
   server-id: 1
   server-time-zone: UTC
 #  use-ssl: false
@@ -15,7 +15,7 @@ source:
 
 sink:
   type: doris
-  fenodes: doris-fe:8030
+  fenodes: doris.dev:8030
   username: root
   password: ""
   table.create.properties.light_schema_change: true
