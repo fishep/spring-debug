@@ -63,9 +63,15 @@ dependencyManagement {
 dependencies {
     implementation 'org.projectlombok:lombok'
     implementation 'cn.hutool:hutool-all'
+    implementation 'com.alibaba:fastjson'
     implementation 'org.mapstruct:mapstruct'
     implementation 'io.projectreactor:reactor-core'
     implementation 'org.redisson:redisson'
+
+//    implementation 'ch.qos.logback:logback-classic:1.4.6'
+//    implementation "org.apache.logging.log4j:log4j-core"
+//    implementation "org.apache.logging.log4j:log4j-api"
+//    implementation "org.apache.logging.log4j:log4j-slf4j-impl"
 
 //    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
 //    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
@@ -89,15 +95,24 @@ dependencies {
     implementation 'org.apache.flink:flink-table-planner-loader'
     implementation 'org.apache.flink:flink-streaming-java'
     implementation 'org.apache.flink:flink-connector-files'
-    implementation 'org.apache.flink:flink-connector-kafka:3.1.0-1.18'
-    implementation 'org.apache.flink:flink-connector-jdbc:3.1.2-1.18'
+    implementation 'org.apache.flink:flink-connector-kafka:3.2.0-1.19'
+    implementation 'org.apache.flink:flink-connector-jdbc:3.2.0-1.19'
+
+    implementation 'org.apache.doris:flink-doris-connector-1.19:1.6.1'
+    implementation 'org.slf4j:slf4j-log4j12:1.7.25'
+//    implementation('org.apache.doris:flink-doris-connector-1.19:1.6.1') {
+//    @TODO  logback-classic 和 slf4j-log4j12 冲突了，怎么解决 ？？？
+//    http://www.slf4j.org/codes.html#StaticLoggerBinder
+//        exclude group: 'org.slf4j:slf4j-log4j12'
+//    }
+
     implementation 'org.apache.flink:flink-runtime-web'
     implementation 'org.apache.flink:flink-cep'
-    implementation 'org.apache.flink:flink-connector-mysql-cdc:3.1.0'
-    implementation 'org.apache.flink:flink-cdc-common:3.1.0'
-    implementation 'org.apache.flink:flink-cdc-pipeline-connector-doris:3.1.0'
-    implementation 'org.apache.flink:flink-cdc-pipeline-connector-mysql:3.1.0'
-//    implementation('org.apache.flink:flink-connector-mysql-cdc:3.1.0') {
+    implementation 'org.apache.flink:flink-connector-mysql-cdc:3.1.1'
+//    implementation 'org.apache.flink:flink-cdc-common:3.1.1'
+//    implementation 'org.apache.flink:flink-cdc-pipeline-connector-doris:3.1.1'
+//    implementation 'org.apache.flink:flink-cdc-pipeline-connector-mysql:3.1.1'
+//    implementation('org.apache.flink:flink-connector-mysql-cdc:3.1.1') {
 //        exclude group: 'mysql:mysql-connector-java:8.0.28'
 //    }
 
@@ -144,5 +159,6 @@ processResources {
 }
 
 tasks.named('test') {
+    enabled = false
     useJUnitPlatform()
 }

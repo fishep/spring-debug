@@ -1,21 +1,29 @@
 ################################################################################
 # Description: Sync MySQL all tables to Doris
+# https://github.com/apache/flink-cdc/blob/master/docs/content/docs/connectors/pipeline-connectors/mysql.md
 ################################################################################
 source:
   type: mysql
-  hostname: mysql
+  hostname: mysql.dev
   port: 3306
-  username: app_db
-  password: app_db
-  tables: app_db.\.*
-  server-id: 1
+  username: demo
+  password: demo
+  tables: demo.\.*
+#  server-id: 5401-5404
+  server-id: 5401
   server-time-zone: UTC
-#  use-ssl: false
-#  allow-public-key-retrieval: true
+#  scan.newly-added-table.enabled: true
+#  scanNewlyAddedTableEnabled: true
+#  scan-newly-added-table-enabled: true
+#  schema-change.enabled: true
+#  debezium.include.schema.changes: true
+#  debezium.include.schema.comments: true
+#  debezium.incremental.snapshot.allow.schema.changes: true
 
 sink:
   type: doris
-  fenodes: doris-fe:8030
+  fenodes: doris.dev:8030
+  benodes: doris.dev:8040
   username: root
   password: ""
   table.create.properties.light_schema_change: true

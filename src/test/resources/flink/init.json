@@ -1,0 +1,27 @@
+{
+  "before": null,
+  "after": {
+    "id": 1,
+    "comment": "111"
+  },
+  "source": {
+    "version": "1.9.8.Final",
+    "connector": "mysql",
+    "name": "mysql_binlog_source",
+    "ts_ms": 0,
+    "snapshot": "false",
+    "db": "demo",
+    "sequence": null,
+    "table": "flink_cdc_1",
+    "server_id": 0,
+    "gtid": null,
+    "file": "",
+    "pos": 0,
+    "row": 0,
+    "thread": null,
+    "query": null
+  },
+  "op": "r",
+  "ts_ms": 1721370410883,
+  "transaction": null
+}

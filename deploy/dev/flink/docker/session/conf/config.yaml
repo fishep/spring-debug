@@ -17,6 +17,11 @@ jobmanager:
     process:
       size: 1600m
   bind-host: 0.0.0.0
+state:
+  savepoints:
+    dir: file:///opt/flink/flink-savepoints
+  checkpoints:
+    dir: file:///opt/flink/flink-checkpoints
 query:
   server:
     port: '6125'
@@ -25,7 +30,7 @@ rest:
   address: 0.0.0.0
 execution:
   checkpointing:
-    interval: 3000
+    interval: 3min
 parallelism:
   default: 1
 env:

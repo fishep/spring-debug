@@ -2,6 +2,8 @@ ext {
     version = [
             "hutool": "5.8.16",
             "lombok": "1.18.26",
+            "fastjson": "2.0.52",
+            "log4jVersion": '2.19.0',
             "mapstruct": "1.5.5.Final",
             "mybatis": "3.0.1",
             "mybatisplus": "3.5.3.1",
@@ -15,6 +17,10 @@ ext {
     dependencies = [
             "hutool": "cn.hutool:hutool-all:${version.hutool}",
             "lombok": "org.projectlombok:lombok:${version.lombok}",
+            "fastjson": "com.alibaba:fastjson:${version.fastjson}",
+            "log4j-core": "org.apache.logging.log4j:log4j-core:${version.log4jVersion}",
+            "log4j-api": "org.apache.logging.log4j:log4j-api:${version.log4jVersion}",
+            "log4j-slf4j-impl": "org.apache.logging.log4j:log4j-slf4j-impl:${version.log4jVersion}",
             "mapstruct": "org.mapstruct:mapstruct:${version.mapstruct}",
             "mapstruct-processor": "org.mapstruct:mapstruct-processor:${version.mapstruct}",
             "mybatis": "org.mybatis.spring.boot:mybatis-spring-boot-starter:${version.mybatis}",

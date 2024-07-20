@@ -19,8 +19,27 @@ kafka-consumer-groups.sh --bootstrap-server localhost:9092 --group kafka-consume
 kafka-console-producer.sh --broker-list localhost:9092 --topic topic-demo
 
 #-1 or latest / -2 or earliest / -3 or max-timestamp
+kafka-run-class.sh org.apache.kafka.tools.GetOffsetShell --broker-list localhost:9092 --topic topic-demo
 kafka-run-class.sh org.apache.kafka.tools.GetOffsetShell --broker-list localhost:9092 --topic topic-demo --time -1
 kafka-run-class.sh org.apache.kafka.tools.GetOffsetShell --broker-list localhost:9092 --topic topic-demo --time -2
+kafka-run-class.sh org.apache.kafka.tools.GetOffsetShell --broker-list localhost:9092 --topic topic-demo --time -3
+
+cat << EOF > offset.json
+{
+    "partitions":[
+        {
+            "topic": "flink-cdc-kafka-doris",
+            "partition": 0,
+            "offset": 4
+        }
+    ],
+    "version":1
+}
+EOF
+kafka-delete-records.sh --offset-json-file offset.json --bootstrap-server localhost:9092
+
+kafka-configs.sh --bootstrap-server localhost:9092 --describe --entity-type topics | grep session.timeout.ms
+kafka-configs.sh --bootstrap-server localhost:9092 --describe --entity-type topics | grep transaction.timeout.ms
 
 ````
 

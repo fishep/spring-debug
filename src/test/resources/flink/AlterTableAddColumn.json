@@ -1,0 +1,94 @@
+{
+  "source": {
+    "version": "1.9.8.Final",
+    "connector": "mysql",
+    "name": "mysql_binlog_source",
+    "ts_ms": 1721371202511,
+    "snapshot": "false",
+    "db": "demo",
+    "sequence": null,
+    "table": "flink_cdc_1",
+    "server_id": 1,
+    "gtid": "65d12204-351d-11ef-b82f-0242ac120003:570",
+    "file": "mysql-bin.000017",
+    "pos": 4031,
+    "row": 0,
+    "thread": null,
+    "query": null
+  },
+  "historyRecord": {
+    "source": {
+      "file": "mysql-bin.000017",
+      "pos": 4031,
+      "server_id": 1
+    },
+    "position": {
+      "transaction_id": null,
+      "ts_sec": 1721371202,
+      "file": "mysql-bin.000017",
+      "pos": 4234,
+      "gtids": "65d12204-351d-11ef-b82f-0242ac120003:1-569",
+      "server_id": 1
+    },
+    "databaseName": "demo",
+    "ddl": "ALTER TABLE `flink_cdc_1` ADD COLUMN `last_update_at` DATETIME NULL DEFAULT NULL COMMENT '鏁版嵁鏈�鍚庢洿鏂版椂闂�?'",
+    "tableChanges": [
+      {
+        "type": "ALTER",
+        "id": "demo.flink_cdc_1",
+        "table": {
+          "defaultCharsetName": "utf8mb4",
+          "primaryKeyColumnNames": [
+            "id"
+          ],
+          "columns": [
+            {
+              "name": "id",
+              "jdbcType": -5,
+              "typeName": "BIGINT",
+              "typeExpression": "BIGINT",
+              "charsetName": null,
+              "position": 1,
+              "optional": false,
+              "autoIncremented": true,
+              "generated": true,
+              "comment": null,
+              "hasDefaultValue": false,
+              "enumValues": []
+            },
+            {
+              "name": "comment",
+              "jdbcType": 12,
+              "typeName": "VARCHAR",
+              "typeExpression": "VARCHAR",
+              "charsetName": "utf8mb4",
+              "length": 255,
+              "position": 2,
+              "optional": true,
+              "autoIncremented": false,
+              "generated": false,
+              "comment": null,
+              "hasDefaultValue": true,
+              "enumValues": []
+            },
+            {
+              "name": "last_update_at",
+              "jdbcType": 93,
+              "typeName": "DATETIME",
+              "typeExpression": "DATETIME",
+              "charsetName": null,
+              "position": 3,
+              "optional": true,
+              "autoIncremented": false,
+              "generated": false,
+              "comment": null,
+              "hasDefaultValue": true,
+              "enumValues": []
+            }
+          ]
+        },
+        "comment": null
+      }
+    ]
+  }
+}

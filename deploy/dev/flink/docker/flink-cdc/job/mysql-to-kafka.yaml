@@ -1,0 +1,29 @@
+################################################################################
+# Description: Sync MySQL all tables to Kafka
+# https://github.com/apache/flink-cdc/blob/master/docs/content/docs/connectors/pipeline-connectors/kafka.md
+################################################################################
+source:
+  type: mysql
+  hostname: mysql.dev
+  port: 3306
+  username: demo
+  password: demo
+  tables: demo.\.*
+  #  server-id: 5401-5404
+  server-id: 5402
+  server-time-zone: UTC
+
+sink:
+  type: kafka
+  name: Kafka Sink
+  properties.bootstrap.servers: PLAINTEXT://kafka.dev:9092
+#  properties.*
+  topic: mysql-to-kafka
+#  add-tableId-to-header-enabled: true
+#  sink.add-tableId-to-header-enabled: true
+#  value.format: debezium-json
+
+pipeline:
+  name: MySQL to Kafka Pipeline
+#  parallelism: 2
+  parallelism: 1
