@@ -26,10 +26,12 @@ import org.apache.doris.flink.cfg.DorisOptions;
 import org.apache.doris.flink.cfg.DorisReadOptions;
 import org.apache.doris.flink.sink.DorisSink;
 import org.apache.doris.flink.sink.writer.serializer.JsonDebeziumSchemaSerializer;
+import org.apache.doris.flink.sink.writer.serializer.SimpleStringSerializer;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.cdc.connectors.mysql.source.MySqlSource;
+import org.apache.flink.cdc.connectors.mysql.table.StartupOptions;
 import org.apache.flink.cdc.debezium.JsonDebeziumDeserializationSchema;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.RestOptions;
@@ -79,6 +81,8 @@ public class DatabaseFullSync {
             .username(MYSQL_USER)
             .password(MYSQL_PASSWD)
             .serverTimeZone("UTC")
+//            .startupOptions(StartupOptions.latest())
+            .startupOptions(StartupOptions.initial())
             .debeziumProperties(DateToStringConverter.DEFAULT_PROPS)
             .deserializer(new JsonDebeziumDeserializationSchema(false, customConverterConfigs))
             .includeSchemaChanges(true)
@@ -94,9 +98,7 @@ public class DatabaseFullSync {
 
         DataStreamSource<String> cdcSource = env.fromSource(mySqlSource, WatermarkStrategy.noWatermarks(), "MySQL CDC Source");
 
-        cdcSource.print("binlog info ");
-//        DorisSink dorisSink = buildDorisSink("FullDatabase");
-//        cdcSource.sinkTo(dorisSink).name("sink FullDatabase");
+        cdcSource.print("binlog info: ");
 
         //get table list
         List<String> tableList = getTableList();
@@ -104,12 +106,14 @@ public class DatabaseFullSync {
         for (String tbl : tableList) {
             SingleOutputStreamOperator<String> filterStream = filterTableData(cdcSource, tbl);
             SingleOutputStreamOperator<String> dataStream = addCustomColumn(filterStream);
-            DorisSink dorisSink = buildDorisSink(tbl);
+            DorisSink<String> dorisSink = buildSchemaDorisSink(tbl);
             dataStream.sinkTo(dorisSink).name("sink " + tbl);
         }
 
-//        DorisSink dorisSink = buildDorisSink("table_row_change_log");
-//        cdcSource.sinkTo(dorisSink).name("sink table_row_change_log");
+        SingleOutputStreamOperator<String> filterCrud = filterCrud(cdcSource);
+        SingleOutputStreamOperator<String> changeLog = mapToTableRowChangeLog(filterCrud);
+        DorisSink<String> dorisSink = buildSimpleDorisSink("table_row_change_log");
+        changeLog.sinkTo(dorisSink).name("sink table_row_change_log");
 
         env.execute("Full Database Sync ");
     }
@@ -166,17 +170,12 @@ public class DatabaseFullSync {
                         lastUpdateAtColumn.put("hasDefaultValue", true);
                         lastUpdateAtColumn.put("enumValues", new JSONArray());
 
-                        LOG.warn("tableChanges before columns: {}", columns);
-
                         columns.add(lastUpdateAtColumn);
-
-//                        table.put("columns", columns);
-
-                        LOG.warn("tableChanges after columns: {}", columns);
                     }
 
-//                    @TODO 新加的列在rowJson.toJSONString() 里没有
-                    LOG.warn("tableChanges rowJson: {}", rowJson.toJSONString());
+                    LOG.info("rowJson put before: {}", rowJson.toJSONString());
+                    rowJson.put("historyRecord", historyRecord.toJSONString());
+                    LOG.info("rowJson put after: {}", rowJson.toJSONString());
 
                     return rowJson.toJSONString();
                 }
@@ -226,10 +225,26 @@ public class DatabaseFullSync {
     private static SingleOutputStreamOperator<String> mapToTableRowChangeLog(SingleOutputStreamOperator<String> stream) {
         return stream.map((MapFunction<String, String>) row -> {
             JSONObject rowJson = JSON.parseObject(row);
+            String op = rowJson.getString("op");
+            JSONObject source = rowJson.getJSONObject("source");
+            Long timestamp = source.getLong("ts_ms");
+            String lastUpdateAt = timestampToString(timestamp);
+            String table = source.getString("table");
 
-//            @TODO 把其他表的更新转换成 table_row_change_log表的插入
+            JSONObject changeLog = new JSONObject();
+            changeLog.put("__DORIS_DELETE_SIGN__", 0);
+            changeLog.put("dt", lastUpdateAt);
+            changeLog.put("table_name", table);
+            changeLog.put("op", op);
+            if (Arrays.asList("c", "r", "u").contains(op)) {
+                JSONObject after = rowJson.getJSONObject("after");
+                changeLog.put("pk_1", after.getString("id"));
+            } else if ("d".equals(op)) {
+                JSONObject before = rowJson.getJSONObject("before");
+                changeLog.put("pk_1", before.getString("id"));
+            }
 
-            return null;
+            return changeLog.toJSONString();
         });
     }
 
@@ -254,7 +269,7 @@ public class DatabaseFullSync {
     /**
      * create doris sink
      */
-    public static DorisSink buildDorisSink(String table) {
+    public static DorisSink<String> buildSchemaDorisSink(String table) {
         DorisSink.Builder<String> builder = DorisSink.builder();
         DorisOptions.Builder dorisBuilder = DorisOptions.builder();
         dorisBuilder.setFenodes(FENODES).setBenodes(BENODES)
@@ -267,13 +282,36 @@ public class DatabaseFullSync {
         pro.setProperty("format", "json");
         pro.setProperty("read_json_by_line", "true");
         DorisExecutionOptions executionOptions = DorisExecutionOptions.builder()
-//            .setLabelPrefix("label-" + table + UUID.randomUUID()) //streamload label prefix,
-            .setLabelPrefix("label-" + table) //streamload label prefix,
+            .setLabelPrefix("label-" + table + UUID.randomUUID()) //streamload label prefix,
             .setStreamLoadProp(pro).setDeletable(true).build();
 
         builder.setDorisReadOptions(DorisReadOptions.builder().build())
             .setDorisExecutionOptions(executionOptions)
             .setSerializer(JsonDebeziumSchemaSerializer.builder().setDorisOptions(dorisBuilder.build()).build())
+            .setDorisOptions(dorisBuilder.build());
+
+        return builder.build();
+    }
+
+    public static DorisSink<String> buildSimpleDorisSink(String table) {
+        DorisSink.Builder<String> builder = DorisSink.builder();
+        DorisOptions.Builder dorisBuilder = DorisOptions.builder();
+        dorisBuilder.setFenodes(FENODES).setBenodes(BENODES)
+            .setTableIdentifier(TARGET_DORIS_DB + "." + table)
+            .setUsername(DORIS_USER)
+            .setPassword(DORIS_PASSWD);
+
+        Properties pro = new Properties();
+        //json data format
+        pro.setProperty("format", "json");
+        pro.setProperty("read_json_by_line", "true");
+        DorisExecutionOptions executionOptions = DorisExecutionOptions.builder()
+            .setLabelPrefix("label-" + table + UUID.randomUUID()) //streamload label prefix,
+            .setStreamLoadProp(pro).build();
+
+        builder.setDorisReadOptions(DorisReadOptions.builder().build())
+            .setDorisExecutionOptions(executionOptions)
+            .setSerializer(new SimpleStringSerializer()) //serialize according to string
             .setDorisOptions(dorisBuilder.build());
 
         return builder.build();

@@ -61,7 +61,20 @@ PROPERTIES (
 "replication_allocation" = "tag.location.default: 1"
 );
 
-
+DROP TABLE IF EXISTS `table_row_change_log`;
+CREATE TABLE `table_row_change_log`  (
+  `dt` DATEV2 NULL,
+  `table_name` VARCHAR(100) NULL DEFAULT NULL,
+  `pk_1` VARCHAR(100) NULL DEFAULT NULL,
+  `pk_2` VARCHAR(100) NULL DEFAULT NULL,
+  `pk_3` VARCHAR(100) NULL DEFAULT NULL,
+  `op` CHAR(1) NULL DEFAULT NULL COMMENT 'c,r,u,d -- 创建，快照，更新，删除'
+) 
+DUPLICATE KEY(`dt`, `table_name`, `pk_1`, `pk_2`, `pk_3`, `op`)
+DISTRIBUTED BY HASH(`dt`) BUCKETS AUTO
+PROPERTIES (
+"replication_allocation" = "tag.location.default: 1"
+);
 
 
 
