@@ -25,7 +25,9 @@
         </triggeringPolicy>
     </appender>
 
-    <root level="INFO">
+    <logger name="com.fishep" level="INFO"/>
+
+    <root level="WARN">
         <appender-ref ref="CONSOLE"/>
     </root>
 </configuration>

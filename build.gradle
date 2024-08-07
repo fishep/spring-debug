@@ -98,8 +98,9 @@ dependencies {
     implementation 'org.apache.flink:flink-connector-kafka:3.2.0-1.19'
     implementation 'org.apache.flink:flink-connector-jdbc:3.2.0-1.19'
 
+//    加了这个依赖之后 logback 日志无法输出
     implementation 'org.apache.doris:flink-doris-connector-1.19:1.6.1'
-    implementation 'org.slf4j:slf4j-log4j12:1.7.25'
+//    implementation 'org.slf4j:slf4j-log4j12:1.7.25'
 //    implementation('org.apache.doris:flink-doris-connector-1.19:1.6.1') {
 //    @TODO  logback-classic 和 slf4j-log4j12 冲突了，怎么解决 ？？？
 //    http://www.slf4j.org/codes.html#StaticLoggerBinder
