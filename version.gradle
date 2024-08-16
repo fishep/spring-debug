@@ -12,7 +12,8 @@ ext {
             "kafka": "3.7.0",
             "flink": "1.19.0",
             "springdoc": "2.1.0",
-            "dubbo": "3.2.11"
+            "dubbo": "3.2.11",
+            "calcite": "1.37.0"
     ]
     dependencies = [
             "hutool": "cn.hutool:hutool-all:${version.hutool}",
@@ -41,7 +42,9 @@ ext {
             "flink-table-planner-loader": "org.apache.flink:flink-table-planner-loader:${version.flink}",
             "springdoc": "org.springdoc:springdoc-openapi-starter-webmvc-ui:${version.springdoc}",
             "dubbo": "org.apache.dubbo:dubbo-spring-boot-starter:${version.dubbo}",
-            "dubbo-registry-nacos": "org.apache.dubbo:dubbo-registry-nacos:${version.dubbo}"
+            "dubbo-registry-nacos": "org.apache.dubbo:dubbo-registry-nacos:${version.dubbo}",
+            "calcite-core": "org.apache.calcite:calcite-core:${version.calcite}",
+            "calcite-linq4j": "org.apache.calcite:calcite-linq4j:${version.calcite}"
     ]
 
 }

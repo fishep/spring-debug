@@ -100,7 +100,7 @@ dependencies {
 
 //    加了这个依赖之后 logback 日志无法输出
     implementation 'org.apache.doris:flink-doris-connector-1.19:1.6.1'
-//    implementation 'org.slf4j:slf4j-log4j12:1.7.25'
+    implementation 'org.slf4j:slf4j-log4j12:1.7.25'
 //    implementation('org.apache.doris:flink-doris-connector-1.19:1.6.1') {
 //    @TODO  logback-classic 和 slf4j-log4j12 冲突了，怎么解决 ？？？
 //    http://www.slf4j.org/codes.html#StaticLoggerBinder
@@ -120,6 +120,9 @@ dependencies {
     implementation 'org.apache.kafka:kafka-clients'
     implementation 'org.apache.kafka:kafka-streams'
     implementation 'org.springframework.kafka:spring-kafka'
+
+    implementation 'org.apache.calcite:calcite-core'
+    implementation 'org.apache.calcite:calcite-linq4j'
 
 //    api "org.springframework.cloud:spring-cloud-starter-bootstrap"
 //    api 'com.alibaba.nacos:nacos-client:2.2.3'
@@ -145,6 +148,7 @@ dependencies {
     testFixturesImplementation 'io.projectreactor:reactor-core'
     testFixturesImplementation 'org.springframework.boot:spring-boot-starter'
     testFixturesImplementation 'org.apache.flink:flink-streaming-java'
+    testFixturesImplementation 'org.apache.flink:flink-connector-kafka:3.2.0-1.19'
 
     testFixturesAnnotationProcessor 'org.projectlombok:lombok'
 }

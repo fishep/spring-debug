@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "defaultSchema": "demo",
+  "schemas": [
+    {
+      "name": "customer_functions",
+      "functions":
+      [
+        {
+          "name": "IS_CHANGE_TO",
+          "className": "com.fishep.calcite.function.IsChangeToFunction"
+        },
+        {
+          "name": "COLLECT_ITEM",
+          "className": "com.fishep.calcite.function.CollectItemFunction"
+        }
+      ]
+    },
+    {
+      "name": "demo",
+      "type": "jdbc",
+      "cache": false,
+      "jdbcDriver": "com.mysql.cj.jdbc.Driver",
+      "jdbcUrl": "jdbc:mysql://mysql.dev:3306/demo",
+      "jdbcUser": "demo",
+      "jdbcPassword": "demo"
+    }
+  ]
+}

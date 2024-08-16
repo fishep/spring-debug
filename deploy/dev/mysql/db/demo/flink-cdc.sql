@@ -20,6 +20,8 @@ CREATE TABLE `flink_cdc_2`  (
   PRIMARY KEY (`id`)
 )COMMENT='table flink_cdc_2';
 
+ALTER TABLE `flink_cdc_2` ADD COLUMN `flink_cdc_1_id` bigint NULL DEFAULT NULL COMMENT '对应 flink_cdc_1.id' AFTER `id`;
+
 ALTER TABLE `flink_cdc_2` ADD COLUMN `column_1` VARCHAR(255) DEFAULT '' COMMENT '新增column_1';
 ALTER TABLE `flink_cdc_2` ADD COLUMN `column_2` VARCHAR(255) DEFAULT '' COMMENT '新增column_2';
 ALTER TABLE `flink_cdc_2` DROP COLUMN `column_2`;
@@ -37,6 +39,9 @@ DELETE FROM `flink_cdc_2` WHERE `id` = 3;
 
 
 SHOW VARIABLES LIKE '%character%';
+
+SELECT f1.* FROM flink_cdc_1 f1 LEFT JOIN flink_cdc_2 f2 ON (f1.id = f2.id)
+GROUP BY f1.id
 
 
 
