@@ -7,3 +7,5 @@ spring:
     active: @profile@
 #  main:
 #    allowBeanDefinitionOverriding: true
+liteflow:
+  rule-source: config/flow_spring.el.xml

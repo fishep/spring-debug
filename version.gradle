@@ -13,7 +13,8 @@ ext {
             "flink": "1.19.0",
             "springdoc": "2.1.0",
             "dubbo": "3.2.11",
-            "calcite": "1.37.0"
+            "calcite": "1.37.0",
+            "liteflow": "2.12.2.1"
     ]
     dependencies = [
             "hutool": "cn.hutool:hutool-all:${version.hutool}",
@@ -44,7 +45,9 @@ ext {
             "dubbo": "org.apache.dubbo:dubbo-spring-boot-starter:${version.dubbo}",
             "dubbo-registry-nacos": "org.apache.dubbo:dubbo-registry-nacos:${version.dubbo}",
             "calcite-core": "org.apache.calcite:calcite-core:${version.calcite}",
-            "calcite-linq4j": "org.apache.calcite:calcite-linq4j:${version.calcite}"
+            "calcite-linq4j": "org.apache.calcite:calcite-linq4j:${version.calcite}",
+            "liteflow-core": "com.yomahub:liteflow-core:${version.liteflow}",
+            "liteflow-spring-boot-starter": "com.yomahub:liteflow-spring-boot-starter:${version.liteflow}"
     ]
 
 }

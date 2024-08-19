@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow>
+    <nodes>
+        <node id="a" class="com.fishep.spring.debug.liteflow.cmp.ACmp"/>
+        <node id="b" class="com.fishep.spring.debug.liteflow.cmp.BCmp"/>
+        <node id="c" class="com.fishep.spring.debug.liteflow.cmp.CCmp"/>
+    </nodes>
+
+    <chain name="chain1">
+        THEN(a, b, c);
+    </chain>
+</flow>

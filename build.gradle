@@ -124,6 +124,9 @@ dependencies {
     implementation 'org.apache.calcite:calcite-core'
     implementation 'org.apache.calcite:calcite-linq4j'
 
+    implementation 'com.yomahub:liteflow-core'
+    implementation 'com.yomahub:liteflow-spring-boot-starter'
+
 //    api "org.springframework.cloud:spring-cloud-starter-bootstrap"
 //    api 'com.alibaba.nacos:nacos-client:2.2.3'
 //    api('com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-config') {
@@ -149,6 +152,7 @@ dependencies {
     testFixturesImplementation 'org.springframework.boot:spring-boot-starter'
     testFixturesImplementation 'org.apache.flink:flink-streaming-java'
     testFixturesImplementation 'org.apache.flink:flink-connector-kafka:3.2.0-1.19'
+    testFixturesImplementation 'com.yomahub:liteflow-core'
 
     testFixturesAnnotationProcessor 'org.projectlombok:lombok'
 }
@@ -164,6 +168,6 @@ processResources {
 }
 
 tasks.named('test') {
-    enabled = false
+//    enabled = false
     useJUnitPlatform()
 }
