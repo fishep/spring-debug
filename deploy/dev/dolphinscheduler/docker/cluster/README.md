@@ -45,6 +45,20 @@ docker-compose -p service --profile all up -d
 
 ```
 
+### datax 支持
+```shell
+docker exec -it dolphinscheduler-worker bash
+apt-get update
+apt-get install python2.7
+#apt-get remove python2.7
+mkdir -p /opt/soft/python/bin && cd /opt/soft/python/bin
+ln -s `which python2.7` python2.7
+
+#下载 https://datax-opensource.oss-cn-hangzhou.aliyuncs.com/202309/datax.tar.gz
+docker cp datax.tar.gz dolphinscheduler-worker:/opt/soft
+tar -zxvf datax.tar.gz && rm datax.tar.gz
+```
+
 ### 镜像拉取
 ```shell
 docker pull harbor.xx.com/proxy/bitnami/postgresql:16.0.0
