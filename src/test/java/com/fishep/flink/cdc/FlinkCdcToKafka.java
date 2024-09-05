@@ -25,7 +25,7 @@ public class FlinkCdcToKafka {
     private static String host = "mysql.dev";
     private static int port = 3306;
     private static String database = "demo";
-    private static String table = "demo.flink_cdc_kafka_doris";
+    private static String table = "demo.*";
     private static String username = "demo";
     private static String password = "demo";
 
