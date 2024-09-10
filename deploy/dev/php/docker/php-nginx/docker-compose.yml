@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  php:
+    container_name: php
+    build:
+      context: ./image/3.6.0/
+      dockerfile: Dockerfile
+    image: fishep/php-nginx:3.6.0
+    volumes:
+#      - F:\www\html:/var/www/html
+#      - ~/project/www:/var/www
+      - F:\project\www:/var/www
+      - ./etc/nginx/conf.d/manager.conf:/etc/nginx/conf.d/manager.conf
+      - ./etc/php83/conf.d/settings.ini:/etc/php83/conf.d/settings.ini
+      - ./etc/php83/php-fpm.d/server.conf:/etc/php83/php-fpm.d/server.conf
+    ports:
+      - "80:8080"
