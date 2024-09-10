@@ -15,5 +15,8 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 # Run composer install to install the dependencies
 #RUN composer install --optimize-autoloader --no-interaction --no-progress
 
+COPY https.crt /etc/nginx/ssl/default.crt
+COPY https.key /etc/nginx/ssl/default.key
+
 # Switch back to non-root user
 USER nobody
