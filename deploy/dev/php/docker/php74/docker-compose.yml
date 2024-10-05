@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  php74:
+    container_name: php74
+    build:
+      context: ./image/74/
+      dockerfile: Dockerfile
+    image: fishep/php:7.4-fpm
+#    image: php:7.4-fpm
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./etc/php/conf.d/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+      - ./www/html/:/var/www/html
+      - ./www/project/:/var/www/project
+      - F:\project\fs\service:/var/www/service
+      - F:\project\fs\fs-manager:/var/www/fs-manager
