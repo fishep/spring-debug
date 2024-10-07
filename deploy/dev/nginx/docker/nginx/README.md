@@ -9,11 +9,11 @@ docker exec -it nginx bash
 
 curl http://localhost/index.html
 curl http://localhost/index.php
-curl http://localhost/hello.php
+curl http://localhost/phpinfo.php
 
 curl http://project.dev/index.html
 curl http://project.dev/index.php
-curl http://project.dev/hello.php
+curl http://project.dev/phpinfo.php
 
 ```
 
@@ -26,20 +26,20 @@ openssl req -x509 -nodes -days 365 -newkey rsa -keyout https.key -out https.crt
 
 curl -k https://localhost/index.html
 curl -k https://localhost/index.php
-curl -k https://localhost/hello.php
+curl -k https://localhost/phpinfo.php
 
 curl -k https://project.dev/index.html
 curl -k https://project.dev/index.php
-curl -k https://project.dev/hello.php
+curl -k https://project.dev/phpinfo.php
 
 # 8443:443
 curl -k https://localhost:8443/index.html
 curl -k https://localhost:8443/index.php
-curl -k https://localhost:8443/hello.php
+curl -k https://localhost:8443/phpinfo.php
 
 curl -k https://project.dev:8443/index.html
 curl -k https://project.dev:8443/index.php
-curl -k https://project.dev:8443/hello.php
+curl -k https://project.dev:8443/phpinfo.php
 
 ```
 

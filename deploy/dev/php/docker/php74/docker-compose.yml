@@ -14,5 +14,7 @@ services:
       - ./etc/php/conf.d/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
       - ./www/html/:/var/www/html
       - ./www/project/:/var/www/project
-      - F:\project\fs\service:/var/www/service
-      - F:\project\fs\fs-manager:/var/www/fs-manager
+#      - F:\project\fs\service:/var/www/service
+#      - F:\project\fs\fs-manager:/var/www/fs-manager
+      - ~/project/fs/service:/var/www/service
+      - ~/project/fs/fs-manager:/var/www/fs-manager
