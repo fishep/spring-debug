@@ -3,12 +3,10 @@ package com.fishep.java;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
-import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.TimeZone;
 
 /**
  * @Author fly.fei
@@ -16,7 +14,7 @@ import java.util.TimeZone;
  * @Desc
  **/
 @Slf4j
-public class Time {
+public class TimeTests {
 
     @Test
     void timezone() {

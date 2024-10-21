@@ -11,6 +11,9 @@ vim /etc/apk/repositories
 https://mirrors.ustc.edu.cn/alpine/v3.19/main
 https://mirrors.ustc.edu.cn/alpine/v3.19/community
 
+apk update
+apk add busybox-extras
+
 # 跑不了
 apk add openjdk8
 java -version
