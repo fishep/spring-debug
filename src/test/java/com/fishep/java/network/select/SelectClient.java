@@ -45,7 +45,13 @@ public class SelectClient {
             Iterator<SelectionKey> iterator = selectionKeys.iterator();
             while (iterator.hasNext()) {
                 SelectionKey selectionKey = iterator.next();
-                selectorHandler.handle(selectionKey);
+                try {
+                    selectorHandler.handle(selectionKey);
+                } catch (IOException ioException) {
+                    selectionKey.cancel();
+                    selectionKey.channel().close();
+                    log.warn(ioException.getMessage());
+                }
 
                 iterator.remove();
             }

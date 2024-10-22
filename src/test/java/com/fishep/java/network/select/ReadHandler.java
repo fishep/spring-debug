@@ -37,6 +37,7 @@ public class ReadHandler extends AbstractSelectorHandler {
             log.info("ReadHandler: " + info);
         } else {
             selectionKey.cancel();
+            socketChannel.close();
 
             log.info("ReadHandler: peer close");
         }
