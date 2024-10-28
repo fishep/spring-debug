@@ -14,4 +14,15 @@ gradle clean build -i -x test --no-daemon -Dprofile=dev -b build.gradle
 ./gradlew :microservice:sso-server:clean
 ./gradlew :microservice:sso-server:build -i -x test --no-daemon -Dprofile=dev -b build.gradle processResources
 
+
+
+
+./gradlew dependencies
+
+./gradlew dependencyInsight --dependency netty 
+
+./gradlew dependencyInsight --dependency netty --configuration compileClasspath -q
+
+./gradlew --refresh-dependencies
+
 ```

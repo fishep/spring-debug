@@ -14,7 +14,8 @@ ext {
             "springdoc": "2.1.0",
             "dubbo": "3.2.11",
             "calcite": "1.37.0",
-            "liteflow": "2.12.2.1"
+            "liteflow": "2.12.2.1",
+            "netty": "4.1.114.Final"
     ]
     dependencies = [
             "hutool": "cn.hutool:hutool-all:${version.hutool}",
@@ -47,7 +48,8 @@ ext {
             "calcite-core": "org.apache.calcite:calcite-core:${version.calcite}",
             "calcite-linq4j": "org.apache.calcite:calcite-linq4j:${version.calcite}",
             "liteflow-core": "com.yomahub:liteflow-core:${version.liteflow}",
-            "liteflow-spring-boot-starter": "com.yomahub:liteflow-spring-boot-starter:${version.liteflow}"
+            "liteflow-spring-boot-starter": "com.yomahub:liteflow-spring-boot-starter:${version.liteflow}",
+//            "netty-all": "io.netty:netty-all:${version.netty}"
     ]
 
 }

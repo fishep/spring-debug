@@ -55,10 +55,28 @@ dependencyManagement {
         }
     }
     imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
         mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:${springCloudAlibabaVersion}"
     }
 }
+
+////当遇到依赖冲突时，指定一个版本号
+//configurations.all() {
+//    Configuration configuration ->
+//        //当遇到版本冲突时，强制使用指定版本号。（会自动下载，无需在dependencies中配置）
+//        configuration.resolutionStrategy.force([
+//                "io.netty:netty-all:4.1.114.Final",
+//                "io.netty:netty-transport-native-epoll:4.1.114.Final"
+//        ])
+//}
+//configurations.all{
+//    //transitive = false
+//    resolutionStrategy {
+//        //failOnVersionConflict() 有冲突就终止,抛出错误
+//        force 'io.netty:netty-transport-native-epoll:4.1.114.Final'//强制使用某个版本的库
+//    }
+//}
 
 dependencies {
     implementation 'org.projectlombok:lombok'
@@ -67,6 +85,12 @@ dependencies {
     implementation 'org.mapstruct:mapstruct'
     implementation 'io.projectreactor:reactor-core'
     implementation 'org.redisson:redisson'
+    implementation 'io.netty:netty-all'
+//    implementation('io.netty:netty-all') {
+//        exclude group: 'io.netty:netty-transport-native-epoll'
+//    }
+
+
 
 //    implementation 'ch.qos.logback:logback-classic:1.4.6'
 //    implementation "org.apache.logging.log4j:log4j-core"
