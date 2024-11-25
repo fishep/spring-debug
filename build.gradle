@@ -122,7 +122,7 @@ dependencies {
     implementation 'org.apache.flink:flink-connector-kafka:3.2.0-1.19'
     implementation 'org.apache.flink:flink-connector-jdbc:3.2.0-1.19'
 
-//    加了这个依赖之后 logback 日志无法输出
+//    加了这个依赖之后 logback 日志无法输出, org.apache.doris 包里有 org.slf4j.Logger
     implementation 'org.apache.doris:flink-doris-connector-1.19:1.6.1'
     implementation 'org.slf4j:slf4j-log4j12:1.7.25'
 //    implementation('org.apache.doris:flink-doris-connector-1.19:1.6.1') {
