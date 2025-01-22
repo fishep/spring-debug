@@ -8,10 +8,10 @@ RUN docker-php-ext-configure gd --with-jpeg --with-webp --with-freetype
 RUN docker-php-ext-install mysqli pdo_mysql zip bz2 bcmath pcntl gd gettext soap
 #docker-php-ext-install soap
 
-#RUN pecl install redis-5.3.7 xdebug-3.1.6
-#RUN docker-php-ext-enable redis xdebug \
-RUN pecl install xdebug-3.1.6
-RUN docker-php-ext-enable xdebug
+RUN pecl install redis-5.3.7 xdebug-3.1.6
+RUN docker-php-ext-enable redis xdebug
+#RUN pecl install xdebug-3.1.6
+#RUN docker-php-ext-enable xdebug
 
 #安装compose https://getcomposer.org/download/
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
