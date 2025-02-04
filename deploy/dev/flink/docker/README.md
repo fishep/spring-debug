@@ -1,9 +1,11 @@
 # 基于docker部署flink服务
-> 只调试了session模式，未调试application，sql-client模式
+> 基于docker部署flink服务
 
-### flink 添加job
+### 启动flink
 ````shell
-cd session/
+cd application/
+#cd session/
+#cd sql-client/
 
 docker compose -p service up -d 
 
@@ -13,13 +15,31 @@ flink run -c org.example.MyJob myFatJar.jar
 
 ````
 
+### 添加依赖
+```shell
+docker cp mysql-connector-j-8.0.32.jar jobmanager:/opt/flink/lib
+docker cp flink-connector-jdbc-3.2.0-1.19.jar jobmanager:/opt/flink/lib
+docker cp flink-shaded-hadoop-2-uber-2.8.3-10.0.jar jobmanager:/opt/flink/lib
+docker cp paimon-flink-1.19-1.1-20250204.002533-45.jar jobmanager:/opt/flink/lib
+
+docker exec -it jobmanager bash 
+chown flink:flink ./lib/mysql-connector-j-8.0.32.jar
+chown flink:flink ./lib/flink-connector-jdbc-3.2.0-1.19.jar
+chown flink:flink ./lib/flink-shaded-hadoop-2-uber-2.8.3-10.0.jar
+chown flink:flink ./lib/paimon-flink-1.19-1.1-20250204.002533-45.jar
+chmod 644 ./lib/mysql-connector-j-8.0.32.jar
+chmod 644 ./lib/flink-connector-jdbc-3.2.0-1.19.jar
+chmod 644 ./lib/flink-shaded-hadoop-2-uber-2.8.3-10.0.jar
+chmod 644 ./lib/paimon-flink-1.19-1.1-20250204.002533-45.jar
+
+#重启 jobmanager taskmanager
+docker compose -p service stop jobmanager taskmanager
+docker compose -p service up -d
+
+```
+
 ### 启动 historyserver
 ```shell
-#https://repo.maven.apache.org/maven2/org/apache/flink/flink-shaded-hadoop-2-uber/2.6.5-9.0/
-docker cp ./flink-shaded-hadoop-2-uber-2.6.5-9.0.jar jobmanager:/opt/flink/lib
-chown flink:flink flink-shaded-hadoop-2-uber-2.6.5-9.0.jar
-chmod 644 flink-shaded-hadoop-2-uber-2.6.5-9.0.jar
-
 # 配置config.yaml
 #      dir: file:///opt/flink/completed-jobs
 #      dir: hdfs://namenode:8020/flink/completed-jobs
@@ -43,20 +63,6 @@ flink-daemon.sh start historyserver --configDir /opt/flink/conf
 
 ### flink sql
 ```shell
-docker cp mysql-connector-j-8.0.32.jar jobmanager:/opt/flink/lib
-docker cp mysql-connector-j-8.0.32.jar taskmanager:/opt/flink/lib
-docker cp flink-connector-jdbc-3.2.0-1.19.jar jobmanager:/opt/flink/lib
-docker cp flink-connector-jdbc-3.2.0-1.19.jar taskmanager:/opt/flink/lib
-
-docker exec -it jobmanager bash 
-docker exec -it taskmanager bash 
-chown flink:flink ./lib/mysql-connector-j-8.0.32.jar ./lib/flink-connector-jdbc-3.2.0-1.19.jar
-chmod 644 ./lib/mysql-connector-j-8.0.32.jar ./lib/flink-connector-jdbc-3.2.0-1.19.jar
-
-#重启 jobmanager taskmanager
-docker compose -p service stop jobmanager taskmanager
-docker compose -p service up -d
-
 docker exec -it jobmanager bash
 ./bin/sql-client.sh
 
