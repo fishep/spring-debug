@@ -6,6 +6,9 @@ CREATE TABLE `flink_cdc_1`  (
   PRIMARY KEY (`id`)
 )COMMENT='table flink_cdc_1';
 
+INSERT INTO `flink_cdc_1` (`id`, `comment`) VALUES (1, 'comment 1');
+INSERT INTO `flink_cdc_1` (`id`, `comment`) VALUES (2, 'comment 2');
+
 ALTER TABLE `flink_cdc_1` ADD COLUMN `column_1` VARCHAR(255) DEFAULT '' COMMENT '新增column_1';
 ALTER TABLE `flink_cdc_1` ADD COLUMN `column_2` VARCHAR(255) DEFAULT '' COMMENT '新增column_2';
 ALTER TABLE `flink_cdc_1` ADD COLUMN `last_update_at` DATETIME NULL DEFAULT NULL COMMENT '数据最后更新时间';

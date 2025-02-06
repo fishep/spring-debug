@@ -21,16 +21,22 @@ docker cp mysql-connector-j-8.0.32.jar jobmanager:/opt/flink/lib
 docker cp flink-connector-jdbc-3.2.0-1.19.jar jobmanager:/opt/flink/lib
 docker cp flink-shaded-hadoop-2-uber-2.8.3-10.0.jar jobmanager:/opt/flink/lib
 docker cp paimon-flink-1.19-1.1-20250204.002533-45.jar jobmanager:/opt/flink/lib
+docker cp flink-sql-connector-mysql-cdc-3.1.1.jar jobmanager:/opt/flink/lib
+docker cp flink-doris-connector-1.19-1.6.1.jar jobmanager:/opt/flink/lib
 
 docker exec -it jobmanager bash 
 chown flink:flink ./lib/mysql-connector-j-8.0.32.jar
 chown flink:flink ./lib/flink-connector-jdbc-3.2.0-1.19.jar
 chown flink:flink ./lib/flink-shaded-hadoop-2-uber-2.8.3-10.0.jar
 chown flink:flink ./lib/paimon-flink-1.19-1.1-20250204.002533-45.jar
+chown flink:flink ./lib/flink-sql-connector-mysql-cdc-3.1.1.jar
+chown flink:flink ./lib/flink-doris-connector-1.19-1.6.1.jar
 chmod 644 ./lib/mysql-connector-j-8.0.32.jar
 chmod 644 ./lib/flink-connector-jdbc-3.2.0-1.19.jar
 chmod 644 ./lib/flink-shaded-hadoop-2-uber-2.8.3-10.0.jar
 chmod 644 ./lib/paimon-flink-1.19-1.1-20250204.002533-45.jar
+chmod 644 ./lib/flink-sql-connector-mysql-cdc-3.1.1.jar
+chmod 644 ./lib/flink-doris-connector-1.19-1.6.1.jar
 
 #重启 jobmanager taskmanager
 docker compose -p service stop jobmanager taskmanager

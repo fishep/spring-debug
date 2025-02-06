@@ -1,0 +1,84 @@
+# paimon
+> paimon
+
+### paimon
+```shell
+
+./bin/sql-client.sh
+SET 'execution.runtime-mode' = 'batch';
+SET 'execution.runtime-mode' = 'streaming';
+
+flink run \
+    ./tmp/paimon-flink-action-1.1-20250204.002533-45.jar \
+    merge_into \
+    --warehouse "file:/opt/flink/tmp/paimon" \
+    --database "default" \
+    --table "word_count_target" \
+    --source_sql "CREATE CATALOG my_catalog WITH ( 'type'='paimon', 'warehouse'='file:/opt/flink/tmp/paimon');" \
+    --source_sql "USE CATALOG my_catalog;" \
+    --source_table "my_catalog.default.word_count" \
+    --on "word_count_target.word = word_count.word" \
+    --merge_actions not-matched-insert\
+    --not_matched_insert_values "*" ;
+
+    --source_sql "CREATE TABLE word_count_target ( word STRING PRIMARY KEY NOT ENFORCED, cnt BIGINT);" \
+
+ALTER TABLE word_count_target SET ('consumer.expiration-time' = '1 d');
+SELECT * FROM word_count_target /*+ OPTIONS('consumer-id' = 'myid', 'consumer.mode' = 'at-least-once') */;
+
+```
+
+### CDC
+```shell
+
+CREATE CATALOG my_catalog WITH (
+    'type'='paimon',
+    'warehouse'='file:/opt/flink/tmp/paimon'
+);
+
+USE CATALOG my_catalog;
+
+CREATE TABLE paimon_flink_cdc_1 (
+  `id` BIGINT PRIMARY KEY NOT ENFORCED,
+  `comment` STRING
+);
+
+#chown -R flink:flink tmp/paimon/default.db/paimon_flink_cdc_1/
+
+flink run \
+    ./tmp/paimon-flink-action-1.1-20250204.002533-45.jar \
+    mysql_sync_table \
+    --warehouse file:/opt/flink/tmp/paimon \
+    --database default \
+    --table paimon_flink_cdc_1 \
+    --primary_keys id \
+    --mysql_conf hostname=mysql.dev \
+    --mysql_conf username=demo \
+    --mysql_conf password=demo \
+    --mysql_conf database-name='demo' \
+    --mysql_conf table-name='flink_cdc_1' \
+    --source_sql "CREATE CATALOG my_catalog WITH ( 'type'='paimon', 'warehouse'='file:/opt/flink/tmp/paimon');" \
+    --source_sql "USE CATALOG my_catalog;" \
+    --table_conf bucket=4 \
+    --table_conf changelog-producer=input \
+    --table_conf sink.parallelism=4
+    
+flink run \
+    ./tmp/paimon-flink-action-1.1-20250204.002533-45.jar \
+    mysql_sync_table \
+    --warehouse file:/opt/flink/tmp/paimon \
+    --database default \
+    --table paimon_flink_cdc_1 \
+    --primary_keys id \
+    --mysql_conf hostname=mysql.dev \
+    --mysql_conf username=demo \
+    --mysql_conf password=demo \
+    --mysql_conf database-name='demo' \
+    --mysql_conf table-name='flink_cdc_1' \
+    --source_sql "CREATE CATALOG my_catalog WITH ( 'type'='paimon', 'warehouse'='file:/opt/flink/tmp/paimon');" \
+    --source_sql "USE CATALOG my_catalog;" \
+    --table_conf changelog-producer=input \
+    --table_conf sink.parallelism=1
+    
+
+```
