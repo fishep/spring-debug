@@ -61,7 +61,7 @@ flink run \
     --source_sql "USE CATALOG my_catalog;" \
     --table_conf bucket=4 \
     --table_conf changelog-producer=input \
-    --table_conf sink.parallelism=4
+    --table_conf sink.parallelism=4;
     
 flink run \
     ./tmp/paimon-flink-action-1.1-20250204.002533-45.jar \
@@ -78,7 +78,6 @@ flink run \
     --source_sql "CREATE CATALOG my_catalog WITH ( 'type'='paimon', 'warehouse'='file:/opt/flink/tmp/paimon');" \
     --source_sql "USE CATALOG my_catalog;" \
     --table_conf changelog-producer=input \
-    --table_conf sink.parallelism=1
-    
+    --table_conf sink.parallelism=1;
 
 ```
