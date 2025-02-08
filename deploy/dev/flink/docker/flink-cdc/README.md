@@ -78,3 +78,32 @@ bash bin/flink-cdc.sh job/mysql-to-kafka.yaml
 
 
 ```
+
+### Paimon
+```shell
+cd application/
+docker compose -p service up -d 
+
+docker cp flink-cdc-3.1.1-bin.tar.gz jobmanager:/opt/flink
+
+docker exec -it jobmanager bash
+tar -zxvf flink-cdc-3.1.1-bin.tar.gz
+rm flink-cdc-3.1.1-bin.tar.gz
+
+docker cp flink-cdc-pipeline-connector-mysql-3.1.1.jar jobmanager:/opt/flink/flink-cdc-3.1.1/lib
+#docker cp flink-cdc-pipeline-connector-doris-3.1.1.jar jobmanager:/opt/flink/flink-cdc-3.1.1/lib
+#docker cp flink-cdc-pipeline-connector-kafka-3.1.1.jar jobmanager:/opt/flink/flink-cdc-3.1.1/lib
+docker cp flink-cdc-pipeline-connector-paimon-3.1.1.jar jobmanager:/opt/flink/flink-cdc-3.1.1/lib
+
+chown -R flink:flink flink-cdc-3.1.1
+
+docker cp ./job jobmanager:/opt/flink/flink-cdc-3.1.1
+#docker cp ./job/mysql-to-paimon.yaml jobmanager:/opt/flink/flink-cdc-3.1.1/job
+
+docker exec -it jobmanager bash 
+cd flink-cdc-3.1.1
+cat job/mysql-to-paimon.yaml
+#bash -x bin/flink-cdc.sh job/mysql-to-paimon.yaml
+bash bin/flink-cdc.sh job/mysql-to-paimon.yaml
+
+```

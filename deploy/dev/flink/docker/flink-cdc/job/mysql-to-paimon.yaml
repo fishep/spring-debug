@@ -1,0 +1,21 @@
+source:
+  type: mysql
+  name: MySQL Source
+  hostname: mysql.dev
+  port: 3306
+  username: demo
+  password: demo
+  tables: demo.\.*
+  #  server-id: 5401-5404
+  server-id: 5402
+  server-time-zone: UTC
+
+sink:
+  type: paimon
+  name: Paimon Sink
+  catalog.properties.metastore: filesystem
+  catalog.properties.warehouse: /opt/flink/tmp/paimon
+
+pipeline:
+  name: MySQL to Paimon Pipeline
+  parallelism: 2

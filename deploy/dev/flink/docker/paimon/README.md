@@ -7,6 +7,7 @@
 ./bin/sql-client.sh
 SET 'execution.runtime-mode' = 'batch';
 SET 'execution.runtime-mode' = 'streaming';
+SET 'execution.checkpointing.interval' = '10 s';
 
 flink run \
     ./tmp/paimon-flink-action-1.1-20250204.002533-45.jar \
