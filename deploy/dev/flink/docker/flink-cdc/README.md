@@ -15,6 +15,7 @@ rm flink-cdc-3.1.1-bin.tar.gz
 
 #包冲突 flink-cdc-dist-3.1.1.jar
 # rm jobmanager:/opt/flink/lib/flink-sql-connector-mysql-cdc-3.1.1.jar 
+# ./bin/sql-client.sh -j /opt/flink/jar/flink-sql-connector-mysql-cdc-3.1.1.jar 
 
 #包冲突 flink-cdc-pipeline-connector-paimon-3.1.1.jar
 # rm jobmanager:/opt/flink/lib/paimon-flink-1.19-1.1-20250204.002533-45.jar
@@ -67,5 +68,81 @@ chown -R flink:flink /tmp/paimon
 cat job/mysql-to-paimon.yaml
 #bash -x bin/flink-cdc.sh job/mysql-to-paimon.yaml
 bash bin/flink-cdc.sh job/mysql-to-paimon.yaml
+
+```
+
+### Mysql
+```shell
+./bin/sql-client.sh -j /opt/flink/jar/flink-sql-connector-mysql-cdc-3.1.1.jar 
+
+SET sql-client.execution.result-mode=tableau;
+
+SET execution.checkpointing.interval='10 s';
+
+DROP TABLE IF EXISTS `mysql_flink_cdc_1`;
+CREATE TABLE `mysql_flink_cdc_1`  (
+  `id` BIGINT,
+  `comment` STRING,
+  PRIMARY KEY (`id`) NOT ENFORCED
+) WITH (
+   'connector' = 'mysql-cdc',
+   'hostname' = 'mysql.dev',
+   'port' = '3306',
+   'username' = 'demo',
+   'password' = 'demo',
+   'database-name' = 'demo',
+   'table-name' = 'flink_cdc_1'
+);
+  
+DROP TABLE IF EXISTS `mysql_flink_cdc_2`;
+CREATE TABLE `mysql_flink_cdc_2`  (
+  `id` BIGINT,
+  `comment` STRING,
+  PRIMARY KEY (`id`) NOT ENFORCED
+) WITH (
+   'connector' = 'jdbc',
+   'url' = 'jdbc:mysql://mysql.dev:3306/demo',
+   'table-name' = 'flink_cdc_2',
+   'username' = 'demo',
+   'password' = 'demo'
+);
+
+SELECT * FROM `mysql_flink_cdc_1`;
+SELECT * FROM `mysql_flink_cdc_2`;
+
+INSERT INTO `mysql_flink_cdc_2` SELECT * FROM `mysql_flink_cdc_1`;
+
+# 聚合测试
+DROP TABLE IF EXISTS `mysql_word_table`;
+CREATE TABLE `mysql_word_table`  (
+    `id` BIGINT,
+    `word` STRING,
+    PRIMARY KEY (`id`) NOT ENFORCED
+) WITH (
+   'connector' = 'mysql-cdc',
+   'hostname' = 'mysql.dev',
+   'port' = '3306',
+   'username' = 'demo',
+   'password' = 'demo',
+   'database-name' = 'demo',
+   'table-name' = 'word_table'
+);
+
+DROP TABLE IF EXISTS `mysql_word_count`;
+CREATE TABLE mysql_word_count (
+    `word` STRING PRIMARY KEY NOT ENFORCED,
+    `count` BIGINT
+) WITH (
+   'connector' = 'jdbc',
+   'url' = 'jdbc:mysql://mysql.dev:3306/demo',
+   'table-name' = 'word_count',
+   'username' = 'demo',
+   'password' = 'demo'
+);
+
+INSERT INTO `mysql_word_count` SELECT `word`, COUNT(*) AS `count` FROM `mysql_word_table` GROUP BY `word`;
+
+SELECT * FROM `mysql_word_table`;
+SELECT * FROM `mysql_word_count`;
 
 ```

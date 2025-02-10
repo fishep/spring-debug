@@ -49,3 +49,26 @@ GROUP BY f1.id
 
 
 
+DROP TABLE IF EXISTS `word_table`;
+CREATE TABLE `word_table`  (
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `word` varchar(255) NOT NULL COMMENT '单词',
+	PRIMARY KEY (`id`)
+)COMMENT='table word_table';
+
+DROP TABLE IF EXISTS `word_count`;
+CREATE TABLE `word_count`  (
+  `word` varchar(255) NOT NULL COMMENT '单词',
+	`count` bigint NOT NULL COMMENT '单词出现的次数',
+  PRIMARY KEY (`word`)
+)COMMENT='table word_count';
+
+INSERT INTO `word_table`(`word`) VALUES('hello');
+INSERT INTO `word_table`(`word`) VALUES('hello');
+INSERT INTO `word_table`(`word`) VALUES('world');
+INSERT INTO `word_table`(`word`) VALUES('hello world!');
+
+INSERT INTO `word_count` SELECT `word`, COUNT(*) AS `count` FROM `word_table` GROUP BY `word`;
+
+
+
