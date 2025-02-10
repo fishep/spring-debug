@@ -9,3 +9,8 @@ services:
       - "8040:8040"
       - "9030:9030"
 #      - "9060:9060"
+    volumes:
+      - paimon_data:/tmp/paimon
+
+volumes:
+  paimon_data:

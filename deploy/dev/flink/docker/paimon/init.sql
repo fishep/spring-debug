@@ -7,9 +7,9 @@ USE CATALOG paimon_catalog;
 
 -- USE demo;
 
-SET sql-client.execution.result-mode=tableau;
+SET 'sql-client.execution.result-mode'='tableau';
 
-SET execution.checkpointing.interval='10 s';
+SET 'execution.checkpointing.interval'='10 s';
 
 CREATE TABLE IF NOT EXISTS word_table (
     id BIGINT PRIMARY KEY NOT ENFORCED,

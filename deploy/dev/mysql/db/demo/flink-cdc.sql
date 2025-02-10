@@ -67,6 +67,10 @@ INSERT INTO `word_table`(`word`) VALUES('hello');
 INSERT INTO `word_table`(`word`) VALUES('hello');
 INSERT INTO `word_table`(`word`) VALUES('world');
 INSERT INTO `word_table`(`word`) VALUES('hello world!');
+UPDATE word_table SET word = 'world' WHERE id = 4;
+DELETE FROM word_table WHERE id = 4;
+INSERT INTO word_table(`id`, `word`) values (5, 'world');
+INSERT INTO word_table(`id`, `word`) values (6, 'hello world!');
 
 INSERT INTO `word_count` SELECT `word`, COUNT(*) AS `count` FROM `word_table` GROUP BY `word`;
 
