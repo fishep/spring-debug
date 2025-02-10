@@ -9,12 +9,14 @@ source:
   #  server-id: 5401-5404
   server-id: 5402
   server-time-zone: UTC
+#  Public Key Retrieval is not allowed
+  debezium.database.allowPublicKeyRetrieval: true
 
 sink:
   type: paimon
   name: Paimon Sink
   catalog.properties.metastore: filesystem
-  catalog.properties.warehouse: /opt/flink/tmp/paimon
+  catalog.properties.warehouse: /tmp/paimon
 
 pipeline:
   name: MySQL to Paimon Pipeline

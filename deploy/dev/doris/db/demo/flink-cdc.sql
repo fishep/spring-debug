@@ -2,6 +2,17 @@
 DROP TABLE IF EXISTS `flink_cdc_1`;
 CREATE TABLE `flink_cdc_1` (
   `id` bigint NOT NULL COMMENT 'id',
+  `comment` varchar(255) NULL DEFAULT NULL COMMENT '备注'
+)UNIQUE KEY(`id`)
+COMMENT "table flink_cdc_1"
+DISTRIBUTED BY HASH(`id`) BUCKETS AUTO
+PROPERTIES (
+"replication_allocation" = "tag.location.default: 1"
+);
+
+DROP TABLE IF EXISTS `flink_cdc_1`;
+CREATE TABLE `flink_cdc_1` (
+  `id` bigint NOT NULL COMMENT 'id',
   `comment` varchar(255) NULL DEFAULT NULL COMMENT '备注',
 	`last_update_at` DATETIMEV2 NULL DEFAULT NULL COMMENT '数据最后更新时间'
 )UNIQUE KEY(`id`)

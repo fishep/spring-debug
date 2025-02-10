@@ -10,6 +10,7 @@ services:
     volumes:
       - flink-home:/opt/flink
       - ./conf/config.yaml:/opt/flink/conf/config.yaml
+      - paimon_data:/tmp/paimon
     environment:
       - |
         FLINK_PROPERTIES=
@@ -26,6 +27,7 @@ services:
     volumes:
       - flink-home:/opt/flink
       - ./conf/config.yaml:/opt/flink/conf/config.yaml
+      - paimon_data:/tmp/paimon
     environment:
       - |
         FLINK_PROPERTIES=
@@ -35,3 +37,4 @@ services:
 
 volumes:
   flink-home:
+  paimon_data:
