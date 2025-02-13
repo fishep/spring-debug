@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  openwebui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: "webui"
+    ports:
+#      - "3000:8080"
+      - "8080:8080"
+    volumes:
+      - open-webui:/app/backend/data
+#    environment:
+#      - OLLAMA_BASE_URL=https://example.com
+#      - OLLAMA_BASE_URL=http://127.0.0.1:11434
+#      - OLLAMA_BASE_URL=http://ollama:11434
+#      - OLLAMA_BASE_URL=http://ollama
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  open-webui:

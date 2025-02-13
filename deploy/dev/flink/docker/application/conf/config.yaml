@@ -6,7 +6,7 @@ taskmanager:
     process:
       size: 1728m
   bind-host: 0.0.0.0
-  numberOfTaskSlots: '2'
+  numberOfTaskSlots: '16'
 jobmanager:
   execution:
     failover-strategy: region
@@ -30,7 +30,7 @@ rest:
   address: 0.0.0.0
 execution:
   checkpointing:
-    interval: 3min
+    interval: 10s
 parallelism:
   default: '2'
 env:

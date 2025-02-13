@@ -20,4 +20,4 @@ sink:
 
 pipeline:
   name: MySQL to Paimon Pipeline
-  parallelism: 2
+  parallelism: 1
