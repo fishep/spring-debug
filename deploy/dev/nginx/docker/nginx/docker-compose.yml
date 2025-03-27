@@ -13,8 +13,10 @@ services:
       - ./etc/nginx/conf.d/:/etc/nginx/conf.d/
       - ./etc/nginx/ssl/:/etc/nginx/ssl/
       - F:\project\fs\service:/var/www/service
+      - F:\project\fs\browser:/var/www/browser
       - F:\project\fs\fs-manager:/var/www/fs-manager
       - F:\project\fs\stats.fs.com:/var/www/stats.fs.com
 #      - ~/project/fs/service:/var/www/service
+#      - ~/project/fs/browser:/var/www/browser
 #      - ~/project/fs/fs-manager:/var/www/fs-manager
 #      - ~/project/fs/stats.fs.com:/var/www/stats.fs.com
